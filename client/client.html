@@ -1,0 +1,49 @@
+<head>
+  <title>Chat app</title>
+</head>
+
+<body>
+  
+  <div class="container">
+  <div class="row">
+    <div class="leftcol col span8">
+      <div class="quizbox">
+        <h1>Quiz Pane</h1>
+        {{yield}}
+      </div>
+      <div class="chatbox">
+        <div class="chatwrapper">
+          <div class="messagewrapper">
+            <div class="messagecontainer">
+              {{> messages }}
+            </div>
+          </div>
+          <div class="inputwrapper form-inline">
+            {{> input }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col span4">
+      <div id="peoplebox">
+        {{> people }}
+      </div>
+    </div>
+  </div>
+  </div>
+</body>  
+
+<template name="people">
+  <p>Todo!</p>
+</template>
+
+<template name="messages">
+  {{#each messages}}
+    <strong>{{name}}:</strong> {{message}}<br>
+  {{/each}}
+</template>
+
+<template name="input">
+  <input type="text" id="message" class="span6">
+  <button class="btn btn-default span2" id="send" type="button">Send</button>
+</template>

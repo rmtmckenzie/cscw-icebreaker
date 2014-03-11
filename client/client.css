@@ -1,0 +1,54 @@
+html {
+    padding: 10px;
+    font-family: Verdana, sans-serif;
+}
+
+.login-buttons-dropdown-align-right {
+    float: right;
+}
+
+.bs-docs-grid, container {
+  position:fixed;
+  height:100%;
+}
+
+.col{
+  height:100%;
+  display:table;
+}
+
+.messagewrapper{
+  display:table-row;
+  height:100%;
+}
+
+.messagecontainer{
+  overflow-y:scroll;
+  height:100%;
+}
+
+.inputwrapper{
+  height:40px;
+  display:table-row;
+}
+.chatwrapper{
+  display:table;
+  width:100%;
+  height:100%;
+  min-height:100px;
+}
+.chatbox{
+  width:100%;
+  display:table-row;
+  height:30%;
+  max-height:200px;
+}
+
+.quizbox{
+  width:100%;
+  display:table-row;
+}
+
+.inputwrapper .btn{
+  float:right;
+}
