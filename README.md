@@ -25,9 +25,18 @@ sudo -H npm install -g meteorite
 git clone https://github.com/rmtmckenzie/cscw2014
 
 
-
-mrt add accounts-ui-unstyled
+mrt add bootstrap-3
 mrt add accounts-password
 mrt add accounts-base
-mrt add bootstrap-3
+mrt add accounts-ui-bootstrap-3
 mrt add iron-router
+
+
+
+
+
+NginX config - must contain these lines:
+location / {
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
