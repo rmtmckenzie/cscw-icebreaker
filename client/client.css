@@ -1,54 +1,107 @@
-html {
-    padding: 10px;
-    font-family: Verdana, sans-serif;
+body {
+    padding-top: 50px;
+    overflow: hidden;
 }
-
-.login-buttons-dropdown-align-right {
-    float: right;
+#wrapper {
+    min-height: 100%;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    display: inline-block;
 }
-
-.bs-docs-grid, container {
-  position:fixed;
-  height:100%;
+#main-wrapper {
+    height: 100%;
+    overflow-y: auto;
+    padding: 50px 0 0px 0;
 }
+#main {
+    position: relative;
+    height: 100%;
+    overflow-y: auto;
+    padding: 0 15px;
+}
+#sidebar-wrapper {
+    height: 100%;
+    padding: 50px 0 0px 0;
+    position: fixed;
+    border-right: 1px solid gray;
+}
+#sidebar {
+    position: relative;
+    height: 100%;
+    overflow-y: auto;
+}
+#sidebar .list-group-item {
+        border-radius: 0;
+        border-left: 0;
+        border-right: 0;
+        border-top: 0;
+}
+/*@media (max-width: 992px) {
+    body {
+        padding-top: 0px;
+    }
+}
+@media (min-width: 992px) {
+    #main-wrapper {
+        float:right;
+    }
+}
+@media (max-width: 992px) {
+    #main-wrapper {
+        padding-top: 0px;
+    }
+}
+@media (max-width: 992px) {
+    #sidebar-wrapper {
+        position: static;
+        height:auto;
+        max-height: 300px;
+  		border-right:0;
+	}
+}*/
 
-.col{
-  height:100%;
-  display:table;
+.quizwrapper{
+  position:absolute;
+  top:0;
+  bottom:30%;
+  width:100%;
+  overflow-y: auto;
+  padding:5px;
 }
 
 .messagewrapper{
-  display:table-row;
-  height:100%;
+  border-top: 1px solid gray;
+  position: absolute;
+  bottom: 38px;
+  width: 100%;
+  top: 70%;
+  overflow-y: auto;
 }
-
-.messagecontainer{
-  overflow-y:scroll;
-  height:100%;
-}
-
 .inputwrapper{
-  height:40px;
-  display:table-row;
+  position: absolute;
+  bottom:0px;
+  width: 100%;
+  padding:1px;
 }
-.chatwrapper{
-  display:table;
-  width:100%;
-  height:100%;
-  min-height:100px;
+#chatmessage{
+  width: 75%;
+  display: inline-block;
+  vertical-align: middle;
 }
-.chatbox{
-  width:100%;
-  display:table-row;
-  height:30%;
-  max-height:200px;
+#chatsend{
+  width: 20%;
+  float: right;
+  min-width: 34px;
 }
-
-.quizbox{
-  width:100%;
-  display:table-row;
+.login-buttons-dropdown-align-right {
+    float: right;
 }
-
-.inputwrapper .btn{
-  float:right;
+.dropdown-toggle{
+  margin-right: 15px;
+}
+button h2{
+  margin:0;
 }

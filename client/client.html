@@ -2,36 +2,70 @@
   <title>Chat app</title>
 </head>
 
-<body>
-  
-  <div class="container">
-  <div class="row">
-    <div class="leftcol col span8">
-      <div class="quizbox">
-        <h1>Quiz Pane</h1>
-        {{yield}}
-      </div>
-      <div class="chatbox">
-        <div class="chatwrapper">
-          <div class="messagewrapper">
-            <div class="messagecontainer">
-              {{> messages }}
-            </div>
+<template name="layout">
+  <div class="navbar navbar-default navbar-fixed-top" id="header">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Brand</a>
+    </div>
+
+    <nav class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+
+        <li><a href="#">Navbar Item 1</a></li>
+
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Navbar Item 2</a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Navbar Item2 - Sub Item 1</a></li>
+          </ul>
+        </li>
+
+        <li><a href="#">Navbar Item 3</a></li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        {{ loginButtons }} <!-- here -->
+      </ul>
+<!--      <ul class="nav navbar-nav pull-right">
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="nbAcctDD">Username</a>
+
+          <ul class="dropdown-menu pull-right">
+            <li><a href="#">Log Out</a></li>
+          </ul>
+        </li>
+      </ul>
+-->
+    </nav>
+  </div>
+
+  <div id="wrapper">
+    <div class="col-xs-9" id="sidebar-wrapper">
+      <div id="sidebar">
+        <div class="quizwrapper">
+          {{yield}}
+        </div>
+        <div class="messagewrapper">
+          <div class="messagecontainer">
+            {{> messages }}
           </div>
-          <div class="inputwrapper form-inline">
-            {{> input }}
-          </div>
+        </div>
+
+        <div class="inputwrapper form-inline">
+          {{> input }}
         </div>
       </div>
     </div>
-    <div class="col span4">
-      <div id="peoplebox">
-        {{> people }}
+
+    <div class="col-xs-3 pull-right" id="main-wrapper">
+      <div id="main">
+        <div class="page-header">
+          <h3>People</h3>
+        </div>{{> people }}
       </div>
     </div>
   </div>
-  </div>
-</body>  
+</template>
 
 <template name="people">
   <p>Todo!</p>
@@ -44,6 +78,26 @@
 </template>
 
 <template name="input">
-  <input type="text" id="message" class="span6">
-  <button class="btn btn-default span2" id="send" type="button">Send</button>
+  <input type="text" id="chatmessage" class="form-control">
+  <button class="btn btn-default" id="chatsend" type="button">Send</button>
+</template>
+
+<template name="home">
+  <h1>
+    Welcome to the icebreaker app!
+  </h1>
+  <h2>
+    Before we get started here, you need to log in with your UVic email address
+    using the dropdown in the top right of the screen.
+  <h2>
+  <h2>
+    In the next few minutes, you'll be entering some information into our system.
+    This information will be used to generate questions to ask other people who use
+    the system so they can get to know you!
+  </h2>
+  <h2>
+    When you're ready to get started press the Go button.
+  </h2>
+  <button class="btn btn-success center-block" id="go"><h2>Go!</h2></button>
+  <br>
 </template>
