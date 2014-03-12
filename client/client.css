@@ -99,8 +99,12 @@ body {
 .login-buttons-dropdown-align-right {
     float: right;
 }
+.login-buttons-dropdown-align-right#login-buttons + li .dropdown-menu{
+  right:19px;
+}
 .dropdown-toggle{
   margin-right: 15px;
+  right:4px;
 }
 button h2{
   margin:0;

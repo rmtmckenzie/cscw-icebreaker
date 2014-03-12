@@ -10,8 +10,8 @@ Template.messages.messages = function () {
 var submitmessage = function() {
   var user = Meteor.user()      
   if (user){
-    if(user.profile)
-      var name = user.profile;
+    if(user.profile && user.profile.name)
+      var name = user.profile.name;
     else if(user.emails && user.emails.length)
       var name = user.emails[0].address;
   } else {
@@ -26,7 +26,6 @@ var submitmessage = function() {
       time: Date.now()
     });
 
-    document.getElementById('message').value = '';
     message.value = '';
   }
 }
