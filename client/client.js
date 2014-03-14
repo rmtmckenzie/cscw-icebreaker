@@ -9,13 +9,10 @@ Template.messages.messages = function () {
 
 var submitmessage = function() {
   var user = Meteor.user()      
-  if (user){
-    if(user.profile && user.profile.name)
-      var name = user.profile.name;
-    else if(user.emails && user.emails.length)
-      var name = user.emails[0].address;
-  } else {
-      var name = 'Anonymous';
+  if (user && user.profile && user.profile.firstName )
+      var name = user.profile.firstName + ' ' + user.profile.lastName;
+  else {
+    return; //TODO error??
   }
   var message = document.getElementById('chatmessage');
 
@@ -30,7 +27,7 @@ var submitmessage = function() {
   }
 }
 
-Template.input.events = {
+Template.chatinput.events = {
   'keydown input#chatmessage' : function (event) {
     if (event.which == 13) { // 13 is the enter key event
       submitmessage();
@@ -43,6 +40,14 @@ Template.input.events = {
 
 //Accounts.ui.config({ passwordSignupFields: 'USERNAME_AND_EMAIL' });
 
+var checkNamedUser = function () {
+  var user = Meteor.user()
+  return user && user.profile.firstName && user.profile.lastName;
+}
+
+Template.home.namedUser = checkNamedUser;
+Template.chatinput.namedUser = checkNamedUser;
+
 Template.home.events = {
   'click button#go' : function (event) {
     if(Meteor.user()){
@@ -50,5 +55,25 @@ Template.home.events = {
     } else {
       alert("You must be logged into access this!\n//todo make this a BS modal");
     }
-  }
+  },
+  'click button#submitnames': function (event, template) {
+    event.preventDefault();
+    var firstNameBox = template.find('#firstNameEntry'),
+        lastNameBox = template.find('#lastNameEntry');
+    if(!firstNameBox.value){
+      $(firstNameBox).parent().addClass('has-error').one('keydown',function (event) {
+        $(this).removeClass('has-error');
+      });
+    }
+    if(!lastNameBox.value){
+      $(lastNameBox).parent().addClass('has-error').one('keydown',function (event) {
+        $(this).removeClass('has-error');
+      });
+    }
+    if(firstNameBox.value && lastNameBox.value){
+      if(!Meteor.call('setUserNames',firstNameBox.value,lastNameBox.value)){
+        console.log("Error!"); //TODO handle this
+      }
+    }
+  } 
 }

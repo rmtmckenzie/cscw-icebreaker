@@ -109,3 +109,7 @@ body {
 button h2{
   margin:0;
 }
+.form-inline .form-group{
+  padding-left:10px;
+  padding-right:10px;
+}
