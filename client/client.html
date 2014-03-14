@@ -78,8 +78,13 @@
 </template>
 
 <template name="input">
-  <input type="text" id="chatmessage" class="form-control">
-  <button class="btn btn-default" id="chatsend" type="button">Send</button>
+  {{#if currentUser}}
+    <input type="text" id="chatmessage" class="form-control">
+    <button class="btn btn-default" id="chatsend" type="button">Send</button>
+  {{else}}
+    <input type="text" id="chatmessage" class="form-control" disabled="true" placeholder="Log in to chat">
+    <button class="btn btn-default" id="chatsend" type="button" disabled="true">Send</button>
+  {{/if}}
 </template>
 
 <template name="home">
@@ -95,9 +100,15 @@
     This information will be used to generate questions to ask other people who use
     the system so they can get to know you!
   </h2>
-  <h2>
-    When you're ready to get started press the Go button.
-  </h2>
-  <button class="btn btn-success center-block" id="go"><h2>Go!</h2></button>
-  <br>
+  {{#if currentUser}}
+    <h2>
+      When you're ready to get started press the Go button.
+    </h2>
+    <button class="btn btn-success center-block" id="go"><h2>Go!</h2></button>
+    <br>
+  {{else}}
+    <h2>
+      Please log in to continue.
+    </h2>
+  {{/if}}
 </template>

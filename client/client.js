@@ -41,6 +41,8 @@ Template.input.events = {
   }
 }
 
+//Accounts.ui.config({ passwordSignupFields: 'USERNAME_AND_EMAIL' });
+
 Template.home.events = {
   'click button#go' : function (event) {
     if(Meteor.user()){
