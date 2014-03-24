@@ -23,7 +23,7 @@ http://nodejs.org/download/
 then follow instructions.
 
 ### Windows
-Apparently it works on windows according to Patrick.
+More info at: http://win.meteor.com/
 
 
 ## Meteor:
@@ -36,7 +36,7 @@ sudo -H npm install -g meteorite
 ```
 ## Project Sources
 ```
-git clone https://github.com/rmtmckenzie/cscw2014
+git clone https://github.com/rmtmckenzie/cscw-icebreaker
 ```
 # Setup
 
