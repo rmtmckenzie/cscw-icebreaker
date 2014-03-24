@@ -12,23 +12,6 @@ Meteor.startup(function () {
   Meteor.assets_folder = application_root + '/public/uploads/';
 });
 
-Meteor.publish("messages", function(channel_name) {
-    return Messages.find({channel: channel_name});
-});
-
-//TODO: enable before making live! (or something similar!)
-//Accounts.config({ restrictCreationByEmailDomain: 'uvic.ca' });
-
-//stop client from posting unless logged in!
-Messages.allow({
-  insert: function(userId, message){
-    console.log(message);
-    if(userId)
-      return true;
-    return false;
-  }
-});
-
 Meteor.methods({
   setUserNames: function(firstName, lastName){
     check(firstName, NonEmptyString);
