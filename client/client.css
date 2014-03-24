@@ -145,3 +145,6 @@ button h2{
   -ms-filter: flipv; /*IE*/
   filter: flipv; /*IE*/
 }
+a.dropdown-toggle{
+  left:0px;
+}

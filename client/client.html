@@ -3,31 +3,36 @@
 </head>
 
 <template name="layout">
-  <script src="public/recordRTC.js"></script>
-  <div class="navbar navbar-default navbar-fixed-top" id="header">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">Brand</a>
-    </div>
+  <div class="navbar navbar-default navbar-fixed-top" role="navitagion" id="header">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/">Brand</a>
+      </div>
 
-    <nav class="collapse navbar-collapse">
+<!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-
-        <li><a href="#">Navbar Item 1</a></li>
-
         <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Navbar Item 2</a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quiz Data<b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Navbar Item2 - Sub Item 1</a></li>
+            <li><a href="truetruefalse">TrueTrueFalse</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quizzes<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="truetruefalsequestion">TrueTrueFalse</a></li>
           </ul>
         </li>
 
-        <li><a href="#">Navbar Item 3</a></li>
       </ul>
-
       <ul class="nav navbar-nav navbar-right">
         {{ loginButtons }} <!-- here -->
       </ul>
-    </nav>
+    </div><!-- /.navbar-collapse -->
+
+    </div>
   </div>
 
   <div id="wrapper">
