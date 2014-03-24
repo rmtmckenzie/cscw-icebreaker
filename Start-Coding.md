@@ -1,6 +1,8 @@
 # Purpose
 
 This is a quick introduction to this project, and is hopefully enough to get you starting coding for it!
+Note that not everything has been verified - if you decide to test it out and find a problem let rmtmckenzie
+know or fix it yourself.
 
 # Introduction to Meteor
 
@@ -87,13 +89,169 @@ The important thing to remember with users is that they only have the informatio
 is provided (it is possible to ensure that certain information is provided though!).
 
 # Collections
+First, let's make a basic collection. You don't have to make the declaration of the 
+collection in somewhere global (but this is the easiest) - you can make two separate
+collections, one for the server and one for the client, as long as they have the same
+name. Note that if you are using the collections in your code the collections actually
+have to be declared before they can be used - so you need to know the load order
+of your application. Anything in a 'lib' folder is loaded first - that's a good
+place for this type of declaration.
+```
+Messages = new Meteor.Collection('messages');
+```
+To see all these messages, you want to set up a template.
+```
+<template name="messages">
+  <div class="messages">
+    {{#each messages}}
+      {{time}} -- {{message}}<br>
+    {{/each}}
+  <div>
+  <input type="text" id="chatmessage" class="form-control">
+  <button class="btn btn-default" id="chatsend" type="button">Send</button>
+</template>
+```
+The each is a loop that outputs whatever is within it for as many elements
+are as found. Now, in our javascript file we need to define a few things:
+```
+Template.messages.messages = function () {
+  return Messages.find({}, { sort: { time: -1 }}).fetch();
+}
+var submitmessage = function(template){
+  var messagebox = template.find('#chatmessage');
+  if(messagebox && messagebox.value != ''){
+    Messages.insert({
+      message: messagebox.value,
+      time: Date.now()
+    });
+  }
+}
+Template.messages.events = {
+  'keydown input#chatmessage' : function (event,template) {
+    if (event.which == 13) { // 13 is the enter key event
+      submitmessage(template);
+    }
+  },
+  'click button#chatsend' : function(event,template) {
+    submitmessage(template);
+  }
+}
+```
+This does no server-side validation at all, so you probably wouldn't want
+to use it as-is. However, because of the way javascript objects are made and 
+saved into collections it is fairly safe-ish. Note that as messages
+are inserted the html will automatically be updated with the new data!
+
+See the next section for server-side validation.
+
+## Adding user information
 Lets quickly look at the code for adding information for a user, as this shows basically 
-how a collection works in Meteor. (note that the users collection is already made. See lib/globals.js
-for an example of more collections being made.)
+how a collection works in Meteor. In the next section we'll create a new collection.
 
-Let's assume that you already have a form with the information in it - i.e. a first and
-last name for a user.
+Let's assume that you already have a form with the information in it - a first and
+last name for a user. E.g.:
+```
+<template name="names">
+  <form role="form" class="form-inline">
+    <div class="form-group">
+      <label for="firstNameEntry">First Name: </label>
+      <input type="text" class="form-control" id="firstNameEntry" placeholder="John/Jane">
+    </div>
+    <div class="form-group">
+      <label for="lastNameEntry"> Last Name: </label>
+      <input type="text" class="form-control" id="lastNameEntry" placeholder="Doe">
+    </div>
+    <button type="submit" class="btn btn-default" id="submitnames">Submit</button>
+  </form>
+</template>
+```
+Now, let's look at the client javascript. We'll also add in a bit of code to prevent the
+form from submitting if the user has not entered anything:
+```
+Template.names.events = {
+  'click button#submitnames': function (event, template) {
+    event.preventDefault(); // stops form submission
+    var firstNameBox = template.find('#firstNameEntry'),
+        lastNameBox = template.find('#lastNameEntry');
+    if(!firstNameBox.value){
+      $(firstNameBox).parent().addClass('has-error').one('keydown',function (event) {
+        $(this).removeClass('has-error');
+      });
+    }
+    if(!lastNameBox.value){
+      $(lastNameBox).parent().addClass('has-error').one('keydown',function (event) {
+        $(this).removeClass('has-error');
+      });
+    }
+  }
+  if(firstNameBox.value && lastNameBox.value){
+    Meteor.call('setUserNames',firstNameBox.value,lastNameBox.value,function(err,data){
+      if(err){
+        console.log("Error!");
+      }
+    });
+  }
+}
+```
+Note the $ - this is using jquery for simplicity in a few places. Also, in the function, 
+'template' corresponds to the particular instance of the template that is running, and
+is a good place to store data if needed!
 
+The other thing you'll notice is the Meteor.call. This calls a server-side function - 
+this could actually be done completely on the client side using the same code, but for
+the sake of this example we'll make a server method. In a file in server/ add the following:
+```
+Meteor.methods({
+  setUserNames: function(firstName, lastName){
+    check(firstName, NonEmptyString);
+    check(lastName, NonEmptyString);
+
+    Meteor.users.update({_id:Meteor.user()._id}, {
+      $set:{
+        "profile.firstName":firstName,
+        "profile.lastName":lastName
+      }
+    });
+    return true;
+  }
+);
+```
+Note that 'check' ensure that the string being passed in is not empty and throws
+an error which will be seen on the client side if it fails. Meteor.users.update 
+calls update on the 'users' collection, setting the first and last names.
+
+## Adding user information - other way
+Use the same html as above, and most of the javascript. We're just going to change 
+the if statement at the end:
+```
+  if(firstNameBox.value && lastNameBox.value){
+    Meteor.users.update({_id:Meteor.user()._id}, {
+      $set:{
+        "profile.firstName":firstNameBox.value,
+        "profile.lastName":lastNameBox.value
+      }
+    });
+  }
+```
+Now, to have the same characteristics as above we need to ensure we check the
+input on the server side.
+```
+Meteor.users.allow({
+  check(firstName, NonEmptyString);
+  check(lastName, NonEmptyString);
+  return true;
+}
+
+```
+This is called when the server tries inserting data - if it returns true then
+the insertion is allowed, otherwise it is not.
+
+Why would you use one method over the other? If you want the information to
+update in the browser instantly, use the second method. However, if it is
+rejected then there will be a slight period of time where it looks like the
+submission didn't fail before the server replies to the client and the client
+resets the data. With the first, nothing is updated until the server has
+checked the data.
 
 
 # Project Layout
