@@ -113,3 +113,35 @@ button h2{
   padding-left:10px;
   padding-right:10px;
 }
+
+.mustrespond{
+  color:red;
+}
+.truth{
+  border-radius:5px;
+  background-color: #b2ffb2;
+  padding:5px;
+}
+.lie{
+  border-radius:5px;
+  background-color: #ffb2b2;
+  padding:5px;
+}
+.webcamHolder{
+  position:relative;
+  display:inline-block;
+}
+.webcamControls{
+  right: 5px;
+  position: absolute;
+  top: 5px;
+  z-index: 10;
+}
+.flipY video{
+  -moz-transform: scaleY(-1);
+  -webkit-transform: scaleY(-1);
+  -o-transform: scaleY(-1);
+  transform: scaleY(-1);
+  -ms-filter: flipv; /*IE*/
+  filter: flipv; /*IE*/
+}

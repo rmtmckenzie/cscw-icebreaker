@@ -51,9 +51,9 @@ Template.chatinput.namedUser = checkNamedUser;
 Template.home.events = {
   'click button#go' : function (event) {
     if(Meteor.user()){
-      Router.go('ttf');
+      Router.go('ttfquestion');
     } else {
-      alert("You must be logged into access this!\n//todo make this a BS modal");
+      alert("You must be logged in to access this!\n//todo make this a BS modal");
     }
   },
   'click button#submitnames': function (event, template) {
@@ -72,8 +72,8 @@ Template.home.events = {
     }
     if(firstNameBox.value && lastNameBox.value){
       if(!Meteor.call('setUserNames',firstNameBox.value,lastNameBox.value)){
-        console.log("Error!"); //TODO handle this
+        //console.log("Error!"); //TODO handle this as part of function(err,data)
       }
     }
-  } 
+  }
 }
