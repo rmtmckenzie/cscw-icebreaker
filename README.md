@@ -53,6 +53,9 @@ To run on a different port:
 mrt -p 3500
 ```
 
+# Getting started
+To get started with coding, see [Getting Started](Start-Coding.md).
+
 # Server setup
 
 Don't worry about this if you're running on your machine,
