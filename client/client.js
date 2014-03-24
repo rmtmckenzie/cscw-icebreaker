@@ -1,42 +1,6 @@
 /**
 * Templates
 */
-Meteor.subscribe("messages")
-
-Template.messages.messages = function () {
-  return Messages.find({}, { sort: { time: -1 }}).fetch();
-}
-
-var submitmessage = function() {
-  var user = Meteor.user()      
-  if (user && user.profile && user.profile.firstName )
-      var name = user.profile.firstName + ' ' + user.profile.lastName;
-  else {
-    return; //TODO error??
-  }
-  var message = document.getElementById('chatmessage');
-
-  if (message.value != '') {
-    Messages.insert({
-      name: name,
-      message: message.value,
-      time: Date.now()
-    });
-
-    message.value = '';
-  }
-}
-
-Template.chatinput.events = {
-  'keydown input#chatmessage' : function (event) {
-    if (event.which == 13) { // 13 is the enter key event
-      submitmessage();
-    }
-  },
-  'click button#chatsend' : function(event) {
-    submitmessage();
-  }
-}
 
 //Accounts.ui.config({ passwordSignupFields: 'USERNAME_AND_EMAIL' });
 
@@ -46,7 +10,6 @@ var checkNamedUser = function () {
 }
 
 Template.home.namedUser = checkNamedUser;
-Template.chatinput.namedUser = checkNamedUser;
 
 Template.home.events = {
   'click button#go' : function (event) {

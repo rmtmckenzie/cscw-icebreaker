@@ -10,7 +10,7 @@
         <a class="navbar-brand" href="/">Brand</a>
       </div>
 
-<!-- Collect the nav links, forms, and other content for toggling -->
+    <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="dropdown">
@@ -35,31 +35,8 @@
     </div>
   </div>
 
-  <div id="wrapper">
-    <div class="col-xs-9" id="sidebar-wrapper">
-      <div id="sidebar">
-        <div class="quizwrapper">
-          {{yield}}
-        </div>
-        <div class="messagewrapper">
-          <div class="messagecontainer">
-            {{> messages }}
-          </div>
-        </div>
-
-        <div class="inputwrapper form-inline">
-          {{> chatinput }}
-        </div>
-      </div>
-    </div>
-
-    <div class="col-xs-3 pull-right" id="main-wrapper">
-      <div id="main">
-        <div class="page-header">
-          <h3>People</h3>
-        </div>{{> people }}
-      </div>
-    </div>
+  <div class="col-xs-12">
+    {{yield}}
   </div>
 </template>
 
