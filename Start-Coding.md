@@ -253,6 +253,78 @@ submission didn't fail before the server replies to the client and the client
 resets the data. With the first, nothing is updated until the server has
 checked the data.
 
+# Adding a question type
+This is a bit different than adding pages and stuff as detailed above, since some 
+specific stuff was done to make everything work together.
+
+For each quiz you will need three different templates:
+1. Data collector (where they input)
+2. Question itself
+3. (optional) Answer
+
+## Data Collector
+In the data collector, you need an html form or whatever to collect it. Then,
+on the click for submit or something (see truetruefalse for an example).
+
+Somewhere in there you'll need an insert like this:
+```
+Questions.insert({
+        userid:Meteor.user()._id,
+        true1:true1.value,
+        true2:true2.value,
+        false1:false1.value,
+        num:num,
+        rand:Math.random(),
+        type:'truetruefalse'
+      });
+```
+On the server side you should add some validation:
+```
+Questions.allow({
+  insert: function(userId, data){
+    switch(data.type){
+    case "truetruefalse":
+      check(data.true1, NonEmptyString);
+      check(data.true2, NonEmptyString);
+      check(data.false1, NonEmptyString);
+      break;
+    default:
+      throw new Error("No question type defined");
+    }
+    check(data.num, Number);
+    check(data.userid, Match.Where(function(x){ return userId === x}));
+    check(data.rand, Number);
+    console.log("allowed insert...");
+    return true;
+  }
+});
+```
+And in the getRandomQuestion function you need to make sure that the
+output object is formatted correctly (or just design it so that the 
+insert already does this).
+```
+switch(q.type){
+  case 'truetruefalse':
+    ret = handleTTF(q);
+    break;
+  default:
+    ret = {};
+}
+```
+##Question
+In the question use "{{#with QData}}" around it to get access to the
+information returned from getRandomQuestion.
+
+If you validate using javascript, do it in an event. If you want to
+validate and go to a different page, what I would do is something
+like this - change the type to something that will render the actual
+answer.
+```
+data = Session.get("QuestionData");" 
+data.type="resulttruetruefalse";
+Session.set("QuestionData",data);
+```
+You can also set some info into the data, i.e. data.right = false.
 
 # Project Layout
 
