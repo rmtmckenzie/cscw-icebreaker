@@ -14,16 +14,15 @@
 </template>
 
 <template name="webcam">
-  <h3>Webcam Testing</h3>
+  <h3>Webcam Question Recording</h3>
+
   <div class="webcamHolder {{#if flipped}}flipY{{/if}}">
     <video id="webcamViewport"></video>
     <div class="webcamControls">
       <button class="btn btn-warning" id="webcamflip"><h4>Upside Down!</h4></button>
       <button class="btn btn-success" id="webcamrecord"><h4>Record</h4></button>
+      <button class="btn btn-danger" id="webcamdone"><h4>Done</h4></button>
     </div>
-    <video width="320" height="240" src="uploads/webcam/testing.webm" controls>
-      <!--<source src="uploads/webcam/testing.webm" type="video/webm">-->
-      Your browser does not support the video tag.
-    </video>
   </div>
+  <p> 1. Record your response in video the the following question: XXX</p>
 </template>

@@ -1,7 +1,6 @@
 Meteor.startup(function () {
   var fs = Meteor.fs = Npm.require('fs');
   var path = Meteor.path = Npm.require('path');
-  Meteor.mkdirp = Npm.require('mkdirp');
   var meteor_root = fs.realpathSync( process.cwd() + '/../' );
   var application_root = fs.realpathSync( meteor_root + '/../' );
 
@@ -83,7 +82,6 @@ Meteor.methods({
       throw new Meteor.Error(500,"No user found","Question "+q._id+" has no user??");
     }
     
-    var ret;
     switch(q.type){
       case 'truetruefalse':
         ret = handleTTF(q);
@@ -106,29 +104,30 @@ Meteor.methods({
     // any sort of attempt to go to the parent directory '..' and any empty directories in
     // between '/////' - which may happen after removing '..'
     path = chroot + (path ? '/' + path + '/' : '/');
-    
+
     // TODO Add file existance checks, etc...
-    Meteor.mkdirp.sync(path, '755');    
+    if(!fs.existsSync(path) ) {
+        fs.mkdirSync(path, '755');
+    }
+
     blob = blob.split(',').pop();
     fileBuffer = new Buffer(blob, "base64");
-    
-    fs.writeFile(path + name, fileBuffer, options); 
-    /*, function(err) {
-      if (err) {
-        throw (new Meteor.Error(500, 'Failed to save file.', err));
-      } else {
-        console.log('The file ' + name + ' (' + encoding + ') was saved to ' + path);
-      }
-    }); */
 
- 
-    function cleanPath(str) {
+    fs.writeFile(path + name, fileBuffer, options, function(err) {
+        if (err) {
+            throw (new Meteor.Error(500, 'Failed to save file.', err));
+        } else {
+            console.log('The file ' + name + ' (' + encoding + ') was saved to ' + path);
+        }
+    });
+
+    function cleanPath (str) {
       if (str) {
         return str.replace(/\.\./g,'').replace(/\/+/g,'').
           replace(/^\/+/,'').replace(/\/+$/,'');
       }
     }
-    function cleanName(str) {
+    function cleanName (str) {
       return str.replace(/\.\./g,'').replace(/\//g,'');
     }
   }
