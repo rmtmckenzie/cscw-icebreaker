@@ -24,73 +24,65 @@ Now, please enter something which is not true about yourself. Try to make it abo
 </br>
 </template>
 
-<template name="quiztruetruefalse">
-  {{#if quizobj}}
+<template name="truetruefalse">
+  {{#with QData}}
     <h3>
-    {{quizobj.user}} has stated the following three things. One of them is not true.
+    {{user}} has stated the following three things. One of them is not true.
     </h3>
     <h3>Select the one you think is a lie!</h3>
     <div class="radio">
       <label class='ttfanswer'>
         <input type="radio" name="quizttfradio" id="quizttfradio1" value="1">
-        {{quizobj.s1}}
+        {{s1}}
       </label>
     </div>
     <div class="radio">
       <label class='ttfanswer'>
         <input type="radio" name="quizttfradio" id="quizttfradio2" value="2">
-        {{quizobj.s2}}
+        {{s2}}
       </label>
     </div>
     <div class="radio">
       <label class='ttfanswer'>
         <input type="radio" name="quizttfradio" id="quizttfradio3" value="3">
-        {{quizobj.s3}}
+        {{s3}}
       </label>
     </div>
     <div class="mustrespond">
     </div>
     <br>
-  {{else}}
-    {{> loading}}
-  {{/if}}
 
-  <div style="text-align:center">
-    <button class="btn btn-warning" id="prev"><h2>Previous</h2></button>
-    <button class="btn btn-info" id="submit" {{#unless quizobj}} disabled="1" {{/unless}}>
-      <h2>Submit</h2>
-    </button>
-  </div>
+    <div style="text-align:center">
+      <button class="btn btn-warning" id="prev"><h2>Previous</h2></button>
+      <button class="btn btn-info" id="submit">
+        <h2>Submit</h2>
+      </button>
+    </div>
+  {{/with}}
 </template>
 
-<template name="resultttf">
-  {{#if quizobj}}
-    {{#if quizobj.right}}
+<template name="resulttruetruefalse">
+  {{#with QData}}
+    {{#if right}}
       <h2>Good job, you got it right!</h2>
-      <h2>This is not true about {{quizobj.user}}:<h2>
-      <h3 class="lie">{{quizobj.guess}}</h3>
+      <h2>This is not true about {{user}}:<h2>
+      <h3 class="lie">{{guess}}</h3>
       <h2>These are true!</h2>
-      <h3 class="truth">{{quizobj.other1}}</h3>
-      <h3 class="truth">{{quizobj.other2}}</h3>
+      <h3 class="truth">{{other1}}</h3>
+      <h3 class="truth">{{other2}}</h3>
     {{else}}
       <h2>Good try, but you got it wrong.<h2>
       <h2>This is true:</h2>
-      <h3 class="truth">{{quizobj.guess}}</h3>
+      <h3 class="truth">{{guess}}</h3>
       <h2>And this is also true:</h2>
-      <h3 class="truth">{{quizobj.other}}</h3>      
-      <h2>This is what's actually not true about {{quizobj.user}}:<h2>
-      <h3 class="lie">{{quizobj.lie}}</h3>
+      <h3 class="truth">{{other}}</h3>      
+      <h2>This is what's actually not true about {{user}}:<h2>
+      <h3 class="lie">{{lie}}</h3>
     {{/if}}
       <div style="text-align:center">
         <button class="btn btn-success" id="next"><h2>Next</h2></button>
       </div>
-  {{else}}
-    <h2>You must arrive at this page from a quiz question!</h2>
-    <div style="text-align:center">
-      <button class="btn btn-warning" id="prev"><h2>Previous</h2></button>
-      <a href="{{pathFor 'home'}}"><button class="btn btn-warning" id="home"><h2>Home</h2></button></a>
-    </div>
-  {{/if}}
+  {{/with}}
 </template>
 
 

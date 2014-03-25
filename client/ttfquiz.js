@@ -27,13 +27,14 @@ Template.infotruetruefalse.events = {
     }
     
     if(true1.value && true2.value && false1.value){
-      TTF.insert({
+      Questions.insert({
         userid:Meteor.user()._id,
         true1:true1.value,
         true2:true2.value,
         false1:false1.value,
         num:num,
-        rand:Math.random()
+        rand:Math.random(),
+        type:'truetruefalse'
       });
       Router.go('ttfquestion')
     } else {
@@ -46,41 +47,7 @@ Template.infotruetruefalse.events = {
   }
 }
 
-Template.quiztruetruefalse.quizobj = function(){
-  return Session.get("TTFData");
-  //return this.storage.getData();
-}
-
-Template.quiztruetruefalse.answer = function(val){
-  var ans = this.storage.getAnswer();  
-  if(val && ans == val){
-    return true;
-  } else {
-    return false;
-  }
-  return ans;
-}
-
-Template.quiztruetruefalse.created = function(){
-  //allow to return to a question
-  if(Session.get("TTFData"))return;
-
-  Meteor.call('getRandomTTF',function(err,data){
-    //TODO actually handle all the errors....
-    if(err){
-      console.log(err);
-    } else if(data){
-      Session.set("TTFData",data);
-    } else {
-      console.log("What the heck? TTF.");
-    }
-  });
-}
-
-Template.quiztruetruefalse.events = {
-  'click button#next' : function(event){
-    Router.go('done');
-  },
+Template.truetruefalse.events = {
   'click button#submit': function(event, template){
     var val = template.find('input[name=quizttfradio]:checked');
     if(!val){
@@ -89,7 +56,7 @@ Template.quiztruetruefalse.events = {
       return;
     }
     val = val.value;
-    data = Session.get("TTFData");
+    data = Session.get("QuestionData");
     if(val == data.a){
       data.right = true;
       switch(val){
@@ -114,8 +81,9 @@ Template.quiztruetruefalse.events = {
       data.lie = data["s"+data.a];
       data.other = data["s"+(6-val-data.a)];
     }
-    Router.go("ttfanswer");
-    Session.set("TTFData",data);
+    //set this so that the results template is rendered.
+    data.type="resulttruetruefalse";
+    Session.set("QuestionData",data);
   },
   'click button#prev' : function (event) {
     //save anything entered....
@@ -123,8 +91,10 @@ Template.quiztruetruefalse.events = {
   }
 }
 
-Template.resultttf.quizobj = function(){
-  return Session.get("TTFData");
+Template.resulttruetruefalse.events = {
+  'click button#next' : function(event){
+    Session.set("QuestionData");    
+    Router.go('quiz');
+  },
 }
-
 
