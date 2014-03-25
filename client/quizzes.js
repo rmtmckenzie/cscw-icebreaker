@@ -19,12 +19,12 @@ Template.webcam.rendered = function(){
       _this.stream = stream;
     }
   );
-}
+};
 
 Template.webcam.flipped = function(){
   var flipped = Deps.nonreactive(function () { return Session.get('WebcamFlipped'); });
   return flipped;
-}
+};
 
 Template.webcam.events = {
   'click button#webcamflip' : function(event,template){
@@ -39,29 +39,27 @@ Template.webcam.events = {
       mRecordRTC.addStream(template.stream);
       mRecordRTC.startRecording();
       template.recording = true;
-      event.target.innerHTML = "<h4>Stop</h4>";
-    } else {
-      mRecordRTC.stopRecording();
-      mRecordRTC.getDataURL(function(dataURL) {
-        Meteor.call('saveFile', dataURL.audio, 'testing.wav','webcam','binary',function(err,data){
-          //TODO actually handle all the errors....
-          if(err){
-            console.log("Saving wav failed",err);
-          } else {
-            console.log("Saving wav passed?");
-          }
-        });
+    }
+  },
+  'click button#webcamdone' : function(event,template){
+    var mRecordRTC = template.mRecordRTC;
 
-        Meteor.call('saveFile', dataURL.video, 'testing.webm','webcam','binary',function(err,data){
-          //TODO actually handle all the errors....
-          if(err){
-            console.log("Saving webm failed",err);
-          } else {
-            console.log("Saving webm passed?");
-          }
-        });
+     if(!template.recording){
+        return;
+     }
+
+      mRecordRTC.stopRecording();
+
+      mRecordRTC.getDataURL(function(dataURL) {
+
+        // Save the audio and video files associated with the questions
+        Meteor.call('saveFile', dataURL.audio, 'testing.wav','webcam','binary');
+        Meteor.call('saveFile', dataURL.video, 'testing.webm','webcam','binary');
+
+        // Now let's redirect the a review screen
+        Router.go('/');
+
       });
-    }//!else
-  }//clickwebcamrecord
-}
+  }
+};
 
