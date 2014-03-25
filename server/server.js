@@ -1,7 +1,6 @@
 Meteor.startup(function () {
   var fs = Meteor.fs = Npm.require('fs');
   var path = Meteor.path = Npm.require('path');
-  Meteor.mkdirp = Npm.require('mkdirp');
   var meteor_root = fs.realpathSync( process.cwd() + '/../' );
   var application_root = fs.realpathSync( meteor_root + '/../' );
 
@@ -43,7 +42,7 @@ Meteor.methods({
       throw new Meteor.Error(500,"No user found","Question "+q._id+" has no user??");
     }
     ret.user = user.profile.firstName +' '+ user.profile.lastName;
-    
+
     rand - Math.random();
 
     ret.true1= q.true1;
@@ -78,44 +77,48 @@ Meteor.methods({
     } else {
       ret.s1 = q.false1;
       ret.s2 = q.true1;
-      ret.s3 = q.true2
+      ret.s3 = q.true2;
       ret.a = 1;
     }
     return ret;
   },
   saveFile: function(blob, name, path, encoding) {
-    var path = cleanPath(path), fs = Meteor.fs,
-      name = cleanName(name || 'file'), options = {encoding: encoding || 'binary'},
-      chroot = Meteor.assets_folder,
-      fileBuffer;
+    var fpath = cleanPath(path),
+        fs = Meteor.fs,
+        name = cleanName(name || 'file'),
+        options = {encoding: encoding || 'binary'},
+        chroot = Meteor.assets_folder,
+        fileBuffer;
+
 
     // Clean up the path. Remove any initial and final '/' -we prefix them-,
     // any sort of attempt to go to the parent directory '..' and any empty directories in
     // between '/////' - which may happen after removing '..'
     path = chroot + (path ? '/' + path + '/' : '/');
-    
+
     // TODO Add file existance checks, etc...
-    Meteor.mkdirp.sync(path, '755');    
+    if(!fs.existsSync(path) ) {
+        fs.mkdirSync(path, '755');
+    }
+
     blob = blob.split(',').pop();
     fileBuffer = new Buffer(blob, "base64");
-    
-    fs.writeFile(path + name, fileBuffer, options); 
-    /*, function(err) {
-      if (err) {
-        throw (new Meteor.Error(500, 'Failed to save file.', err));
-      } else {
-        console.log('The file ' + name + ' (' + encoding + ') was saved to ' + path);
-      }
-    }); */
 
- 
-    function cleanPath(str) {
+    fs.writeFile(path + name, fileBuffer, options, function(err) {
+        if (err) {
+            throw (new Meteor.Error(500, 'Failed to save file.', err));
+        } else {
+            console.log('The file ' + name + ' (' + encoding + ') was saved to ' + path);
+        }
+    });
+
+    function cleanPath (str) {
       if (str) {
         return str.replace(/\.\./g,'').replace(/\/+/g,'').
           replace(/^\/+/,'').replace(/\/+$/,'');
       }
     }
-    function cleanName(str) {
+    function cleanName (str) {
       return str.replace(/\.\./g,'').replace(/\//g,'');
     }
   }
