@@ -1,19 +1,8 @@
 
-
-/*
-ctx.save();
-ctx.scale(1,-1);
-ctx.translate(0,-height);
-//doo
-ctx.restore()
-*/
 Template.webcam.rendered = function(){
-  //this.soundAndVision = new SoundAndVision('.webcamHolder', {  video: true });
-  //this.soundAndVision.start();
-  //this.stream = this.soundAndVision.stream;
   var cam = this.find('#webcamViewport')
-  var _this = this;
-  
+      _this = this;
+
   this.mRecordRTC = new MRecordRTC();
   this.mRecordRTC.mediaType = {
   	audio: true,
@@ -23,8 +12,8 @@ Template.webcam.rendered = function(){
   {
       audio: true,
       video: true
-    }, function(stream) {   
-      console.log("Got stream..."); 
+    }, function(stream) {
+      console.log("Got stream...");
       cam.src = window.URL.createObjectURL(stream);
       cam.play();
       _this.stream = stream;
@@ -40,7 +29,7 @@ Template.webcam.flipped = function(){
 Template.webcam.events = {
   'click button#webcamflip' : function(event,template){
     var flipped = Session.get('WebcamFlipped');
-    console.log("Setting to "+ (!flipped ? "Flipped":"Not Flipped"));    
+    console.log("Setting to "+ (!flipped ? "Flipped":"Not Flipped"));
     Session.set('WebcamFlipped',!flipped);
     $('.webcamHolder').toggleClass("flipY");
   },
