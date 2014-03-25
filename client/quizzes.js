@@ -7,6 +7,7 @@ ctx.translate(0,-height);
 //doo
 ctx.restore()
 */
+
 Template.webcam.rendered = function(){
   //this.soundAndVision = new SoundAndVision('.webcamHolder', {  video: true });
   //this.soundAndVision.start();
@@ -31,6 +32,10 @@ Template.webcam.rendered = function(){
     }
   );
 }
+
+Handlebars.registerHelper('QData', function() {
+    return Session.get("QuestionData");
+});
 
 Template.webcam.flipped = function(){
   var flipped = Deps.nonreactive(function () { return Session.get('WebcamFlipped'); });

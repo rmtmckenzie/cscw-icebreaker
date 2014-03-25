@@ -7,6 +7,12 @@
   <br/>
 </template>
 
+<template name="quizwrapper">
+{{#with quizobj}}
+  {{yield 'quizrender'}}
+{{/with}}
+</template>
+
 <template name="webcam">
   <h3>Webcam Testing</h3>
   <div class="webcamHolder {{#if flipped}}flipY{{/if}}">

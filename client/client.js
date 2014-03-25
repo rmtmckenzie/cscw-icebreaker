@@ -14,7 +14,7 @@ Template.home.namedUser = checkNamedUser;
 Template.home.events = {
   'click button#go' : function (event) {
     if(Meteor.user()){
-      Router.go('ttfquestion');
+      Router.go('quiz');
     } else {
       alert("You must be logged in to access this!\n//todo make this a BS modal");
     }
