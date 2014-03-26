@@ -1,5 +1,5 @@
 
-Template.infotruetruefalse.events = {
+Template.questiontruetruefalse.events = {
   'click button#next' : function (event,template) {
     //post to db
     //save user, true statement, true statment, false statement, num
@@ -32,7 +32,7 @@ Template.infotruetruefalse.events = {
         true2:true2.value,
         false1:false1.value,
       });
-      Router.go('ttfquestion')
+      Router.go('prequiz');
 
     } else {
       console.log("Enter values!");

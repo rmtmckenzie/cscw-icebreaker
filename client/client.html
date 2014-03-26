@@ -13,8 +13,13 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="pre-quiz">Pre-Quiz</a></li>
-        <li><a href="quiz">Start Quiz</a></li>
+        {{#unless DoneQuestions}}
+          <li><a href="prequiz">Pre-Quiz Question {{QuestionCount}}</a></li>
+        {{else}}
+          {{#unless DoneAnswers}}
+            <li><a href="quiz">Start Quiz Question {{AnswerCount}}</a></li>
+          {{/unless}}
+        {{/unless}}
       </ul>
       <ul class="nav navbar-nav navbar-right">
         {{ loginButtons }} 
@@ -49,3 +54,6 @@
   {{/if}}
 </template>
 
+<template name="questionwrapper">
+  {{yield 'questionrender'}}
+</template>
