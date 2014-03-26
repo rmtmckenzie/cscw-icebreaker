@@ -13,15 +13,26 @@
 {{/with}}
 </template>
 
-<template name="webcam">
+<template name="question_video">
+<p>Think up a question as it might relate to a personal detail about the travel you enjoy, or have done in the past!</p>
+<div class="form-group">
+  <input type="text" id="question" placeholder="What would you think my favourite vacation spot would be?" class="form-control" >
+  <input type="text" id="answer" placeholder="Mexico!!" class="form-control" >
+</div>
+<p>Once you are done, save it and got to the next screen to record an answer</p>
+<button class="btn btn-warning" id="videoquestion"><h4>Next</h4></button>
+
+</template>
+
+<template name="answer_video">
   <h3>Webcam Question Recording</h3>
 
-  <div class="webcamHolder {{#if flipped}}flipY{{/if}}">
-    <video id="webcamViewport"></video>
-    <div class="webcamControls">
-      <button class="btn btn-warning" id="webcamflip"><h4>Upside Down!</h4></button>
-      <button class="btn btn-success" id="webcamrecord"><h4>Record</h4></button>
-      <button class="btn btn-danger" id="webcamdone"><h4>Done</h4></button>
+  <div class="videoHolder {{#if flipped}}flipY{{/if}}">
+    <video id="videoViewport"></video>
+    <div class="videoControls">
+      <button class="btn btn-warning" id="videoflip"><h4>Upside Down!</h4></button>
+      <button class="btn btn-danger" id="videorecord"><h4>Record</h4></button>
+      <button class="btn btn-success" id="videodone"><h4>Done</h4></button>
     </div>
   </div>
   <p> 1. Record your response in video the the following question: XXX</p>

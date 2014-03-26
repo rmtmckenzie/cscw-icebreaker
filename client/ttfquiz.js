@@ -5,9 +5,9 @@ Template.infotruetruefalse.events = {
     //save user, true statement, true statment, false statement, num
     var true1 = template.find('#truth1'),
         true2 = template.find('#truth2'),
-        false1 = template.find('#lie'), 
+        false1 = template.find('#lie'),
         num = 1;
-    
+
     if(!true1.value){
       $(true1).parent().addClass('has-error').one('keydown',function (event) {
         $(this).removeClass('has-error');
@@ -25,7 +25,7 @@ Template.infotruetruefalse.events = {
         $(this).removeClass('has-error');
       });
     }
-    
+
     if(true1.value && true2.value && false1.value){
       Questions.insert({
         userid:Meteor.user()._id,
@@ -93,7 +93,7 @@ Template.truetruefalse.events = {
 
 Template.resulttruetruefalse.events = {
   'click button#next' : function(event){
-    Session.set("QuestionData");    
+    Session.set("QuestionData");
     Router.go('quiz');
   },
 }

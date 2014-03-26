@@ -13,9 +13,9 @@ Router.map(function () {
     path: '/quiz',
     template: 'quizwrapper',
     layoutTemplate:'layout',
-    before: function(){ 
+    before: function(){
       if(Session.get("QuestionData"))return;
-      
+
       Meteor.call('getRandomQuestion',function(err,data){
         //TODO actually handle all the errors...
         if(err){
@@ -56,17 +56,24 @@ Router.map(function () {
     template: 'resulttruetrueffalse',
     layoutTemplate: 'layout'
   });
- 
-  this.route('webcam',{
-    path: '/webcam',
-    template: 'webcam'
+
+  this.route('question_video',{
+    path: '/question/video',
+    template: 'question_video',
+    layoutTemplate: 'layout'
+  });
+
+  this.route('answer_video',{
+    path: '/question/video/answer',
+    template: 'answer_video',
+    layoutTemplate: 'layout'
   });
 });
 
 var mustBeSignedIn = function() {
     if (!(Meteor.loggingIn() || Meteor.user())) {
       this.render('home');
-      this.stop(); 
+      this.stop();
     }
   }
 

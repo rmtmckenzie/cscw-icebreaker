@@ -1,6 +1,6 @@
 
-Template.webcam.rendered = function(){
-  var cam = this.find('#webcamViewport')
+Template.answer_video.rendered = function(){
+  var cam = this.find('#videoViewport')
       _this = this;
 
   this.mRecordRTC = new MRecordRTC();
@@ -21,19 +21,40 @@ Template.webcam.rendered = function(){
   );
 };
 
-Template.webcam.flipped = function(){
+
+var question,
+    answer;
+
+Template.question_video.events = {
+    'click button#videoquestion' : function(event,template){
+        // Check the question and answer, then store them for insert into DB later
+        // once we've recorded the video
+        if(template.find('#question') && template.find('#question').value) {
+           question = template.find('#question').value;
+        }
+
+        if(template.find('#answer') && template.find('#answer').value) {
+           answer = template.find('#answer').value;
+        }
+
+        Router.go('answer_video');
+    }
+
+};
+
+Template.answer_video.flipped = function() {
   var flipped = Deps.nonreactive(function () { return Session.get('WebcamFlipped'); });
   return flipped;
 };
 
-Template.webcam.events = {
-  'click button#webcamflip' : function(event,template){
+Template.answer_video.events = {
+  'click button#videoflip' : function(event,template){
     var flipped = Session.get('WebcamFlipped');
     console.log("Setting to "+ (!flipped ? "Flipped":"Not Flipped"));
     Session.set('WebcamFlipped',!flipped);
-    $('.webcamHolder').toggleClass("flipY");
+    $('.videoHolder').toggleClass("flipY");
   },
-  'click button#webcamrecord' : function(event,template){
+  'click button#videorecord' : function(event,template){
     var mRecordRTC = template.mRecordRTC;
     if(!template.recording){
       mRecordRTC.addStream(template.stream);
@@ -41,7 +62,7 @@ Template.webcam.events = {
       template.recording = true;
     }
   },
-  'click button#webcamdone' : function(event,template){
+  'click button#videodone' : function(event,template){
     var mRecordRTC = template.mRecordRTC;
 
      if(!template.recording){
@@ -53,12 +74,19 @@ Template.webcam.events = {
       mRecordRTC.getDataURL(function(dataURL) {
 
         // Save the audio and video files associated with the questions
-        Meteor.call('saveFile', dataURL.audio, 'testing.wav','webcam','binary');
-        Meteor.call('saveFile', dataURL.video, 'testing.webm','webcam','binary');
+        video = Meteor.call('saveFile', dataURL.audio, '.wav','video','binary');
+        audio = Meteor.call('saveFile', dataURL.video, '.webm','video','binary');
 
-        // Now let's redirect the a review screen
-        Router.go('/');
+        console.log("Saving the newly created audio and video into a question object");
 
+        Questions.insert({
+            userid: Meteor.user()._id,
+            video : video,
+            audio : audio,
+            question : question,
+            answer : answer,
+            type : 'video'
+        });
       });
   }
 };
