@@ -1,24 +1,18 @@
 /**
-* Templates
+* Functions for general Templates
 */
 
-//Accounts.ui.config({ passwordSignupFields: 'USERNAME_AND_EMAIL' });
 
-var checkNamedUser = function () {
+Template.home.namedUser = function () {
   var user = Meteor.user()
   return user && user.profile.firstName && user.profile.lastName;
+};
+
+Template.layout.doneprequiz = function(){
+  Questions.find()
 }
 
-Template.home.namedUser = checkNamedUser;
-
 Template.home.events = {
-  'click button#go' : function (event) {
-    if(Meteor.user()){
-      Router.go('quiz');
-    } else {
-      alert("You must be logged in to access this!\n//todo make this a BS modal");
-    }
-  },
   'click button#submitnames': function (event, template) {
     event.preventDefault();
     var firstNameBox = template.find('#firstNameEntry'),
@@ -38,5 +32,13 @@ Template.home.events = {
         //console.log("Error!"); //TODO handle this as part of function(err,data)
       }
     }
+  },
+  'click button#goprequiz' : function (event) {
+    //could implement this in the template
+    Router.go('prequiz');
+  },
+  'click button#goquiz' : function (event) {
+    //could implement this in the template
+    Router.go('quiz');
   }
 }

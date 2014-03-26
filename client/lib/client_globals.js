@@ -1,7 +1,5 @@
-
-Handlebars.registerHelper('QData', function() {
-     return Session.get("QuestionData");
-});
+QuestionCount = new Meteor.Collection('QuestionCount');
+AnswerCount = new Meteor.Collection('AnswerCount');
 
 Meteor.saveQuestion = function(type,dataobj){
   dataobj.userid = Meteor.userId();
@@ -20,3 +18,30 @@ Meteor.saveResponse = function(correct,dataobj){
     type:dataobj.type
   });
 }
+
+//setup helpers for handlebars before the data
+// is actualy set.
+Handlebars.registerHelper('QData', function() {
+  return Session.get("QuestionData");
+});
+
+Handlebars.registerHelper('DoneQuestions',function(){
+  return Session.get("QuestionCount") > 10;
+})
+
+Handlebars.registerHelper('DoneAnswers',function(){
+  return Session.get("AnswerCount") > 10;
+})
+
+Handlebars.registerHelper('QuestionCount',function(){
+  return (Session.get("QuestionCount") || 0) + 1;
+})
+
+Handlebars.registerHelper('AnswerCount',function(){
+  return (Session.get("AnswerCount") || 0) + 1;
+})
+
+Meteor.autosubscribe(function(){
+  Meteor.subscribe("QuestionCount");
+  Meteor.subscribe("AnswerCount");
+})
