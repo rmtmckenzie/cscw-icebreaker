@@ -28,8 +28,11 @@ Router.map(function () {
       this.render();
       var q = Session.get('QuestionData');
       if(q){
-        console.log("Rendering quiz of type ", q.type);
-        this.render(q.type,'quizrender');
+        if(q.answertype){
+          this.render(q.answertype,'quizrender');
+        } else {
+          this.render(q.type,'quizrender');
+        }
       } else {
         this.render('loading','quizrender');
       }

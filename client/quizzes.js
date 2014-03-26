@@ -79,13 +79,11 @@ Template.answer_video.events = {
 
         console.log("Saving the newly created audio and video into a question object");
 
-        Questions.insert({
-            userid: Meteor.user()._id,
-            video : video,
-            audio : audio,
-            question : question,
-            answer : answer,
-            type : 'video'
+        Meteor.saveResponse("video",{
+          video:video,
+          audio:audio,
+          question:question,
+          answer:answer
         });
       });
   }
