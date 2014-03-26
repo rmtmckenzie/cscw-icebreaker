@@ -31,31 +31,55 @@
       {{> names }}
       <button type="submit" class="btn btn-default" id="submitnames">Submit</button>
     </form>
-    <h2>
-      Or, optionally edit your full profile:
-    </h2>
-    <button class="btn btn-default" id="editprofile">Edit Profile</button>
 
   {{else}}
     <br>
     <span class="glyphicon glyphicon-ok"></span>
     <span> Awesome, you've set your name! </span>
-    <h2>
-      In the next few minutes, you'll be entering some information into our system.
-      This information will be used to generate questions to ask other people who use
-      the system so they can get to know you!
-    </h2>
-    <h2>
-      When you're ready to get started press the Go button.
-    </h2>
-    <br>
-    <button class="btn btn-success center-block" id="go"><h2>Go!</h2></button>
-    <br>
+
+    {{#unless DoneQuestions}}
+      {{> beforePreQuiz}}
+    {{else}}
+      {{#unless DoneAnswers}}
+        {{> beforeQuiz}}
+      {{else}}
+        {{> done}}
+      {{/unless}}
+    {{/unless}}
   {{/unless}}
 
 {{/unless}}
 </template>
 
+<template name="beforePreQuiz">
+  <h2>
+    In the next few minutes, you'll be entering some information into our system.
+    This information will be used to generate questions to ask other people who use
+    the system so they can get to know you!
+  </h2>
+  <h2>
+    When you're ready to get started press the Go button.
+  </h2>
+  <br>
+  <button class="btn btn-success center-block" id="goprequiz"><h2>Go!</h2></button>
+  <br>
+</template>
+
+<template name="beforeQuiz">
+  <br>
+  <span class="glyphicon glyphicon-ok"></span>
+  <span> Perfect, you've answered the pre-quiz questions! </span>
+  <h2>
+    Once everyone else is ready, you'll answer a few questions about the other
+    participants. Don't worry, this isn't about getting the answers correct or
+    not - it's about getting to know the other participants a bit!
+  </h2>
+  <h2>
+    When we say so, get started by pressing the Go button.
+  </h2>
+  <br>
+  <button class="btn btn-success center-block" id="goquiz">Go!</button>
+</template>
 
 <template name="done">
   <h1>
