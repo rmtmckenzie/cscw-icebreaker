@@ -34,7 +34,7 @@ function quizWrapAction(){
 
 function questionWrapAction(){
   this.render();
-  var qnum = Session.get("questionCount") || 0; //make sure it's integer
+  var qnum = Session.get("QuestionCount") || 0; //make sure it's integer
 
   if(qnum < 5){
     //0-4 TTF
