@@ -326,6 +326,10 @@ Session.set("QuestionData",data);
 ```
 You can also set some info into the data, i.e. data.right = false.
 
+Note - when a question is done, to get a new quiz to render all you have
+to do is set Session.set("QuestionData") which will empty the session
+variable and automatically reset the quiz wrapper so it reloads a new question.
+
 # Project Layout
 
 ```
