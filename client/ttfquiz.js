@@ -94,7 +94,7 @@ Template.truetruefalse.events = {
 Template.resulttruetruefalse.events = {
   'click button#next' : function(event){
     Session.set("QuestionData");
-    Router.go('quiz');
+    //Router.go('quiz');
   },
 }
 
