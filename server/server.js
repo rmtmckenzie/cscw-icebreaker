@@ -20,6 +20,12 @@ Questions.allow({
       check(data.true2, NonEmptyString);
       check(data.false1, NonEmptyString);
       break;
+    case "video":
+        check(data.video, NonEmptyString);
+        check(data.audio, NonEmptyString);
+        check(data.question, NonEmptyString);
+        check(data.answer, NonEmptyString);
+        break;
     default:
       throw new Error("No question type defined");
     }
