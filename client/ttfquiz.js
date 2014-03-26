@@ -27,16 +27,13 @@ Template.infotruetruefalse.events = {
     }
 
     if(true1.value && true2.value && false1.value){
-      Questions.insert({
-        userid:Meteor.user()._id,
+      Meteor.saveQuestion('truetruefalse',{
         true1:true1.value,
         true2:true2.value,
         false1:false1.value,
-        num:num,
-        rand:Math.random(),
-        type:'truetruefalse'
       });
       Router.go('ttfquestion')
+
     } else {
       console.log("Enter values!");
     }
@@ -77,6 +74,7 @@ Template.truetruefalse.events = {
           break;
       }
     } else {
+      this.right = false;
       data.guess = data["s"+val];
       data.lie = data["s"+data.a];
       data.other = data["s"+(6-val-data.a)];
@@ -93,8 +91,9 @@ Template.truetruefalse.events = {
 
 Template.resulttruetruefalse.events = {
   'click button#next' : function(event){
+    //this is the quizobj because of the #with
+    Meteor.saveResponse(this.right,this);
     Session.set("QuestionData");
-    //Router.go('quiz');
-  },
+  }
 }
 

@@ -91,6 +91,7 @@ Meteor.methods({
     }
     ret.type = q.type;
     ret.user = user.profile.firstName +' '+ user.profile.lastName;
+    ret.userid = q.userid;
 
     return ret;
   },
