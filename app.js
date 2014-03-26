@@ -1,6 +1,3 @@
-function getQuizData(){
-  return Session.get("QuestionData");
-}
 
 Router.map(function () {
   this.route('home', {
@@ -31,6 +28,7 @@ Router.map(function () {
       this.render();
       var q = Session.get('QuestionData');
       if(q){
+        console.log("Rendering quiz of type ", q.type);
         this.render(q.type,'quizrender');
       } else {
         this.render('loading','quizrender');
@@ -47,8 +45,7 @@ Router.map(function () {
   this.route('ttfquestion',{
     path: '/truetruefalse',
     template:'truetruefalse',
-    layoutTemplate: 'layout',
-    data: getQuizData
+    layoutTemplate: 'layout'
   });
 
   this.route('ttfanswer',{
