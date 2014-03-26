@@ -206,7 +206,7 @@ Meteor.methods({
     check(firstName, NonEmptyString);
     check(lastName, NonEmptyString);
 
-    Meteor.users.update({_id:Meteor.user()._id}, {
+    Meteor.users.update({_id:Meteor.userId()}, {
       $set:{
         "profile.firstName":firstName,
         "profile.lastName":lastName
@@ -225,7 +225,7 @@ Use the same html as above, and most of the javascript. We're just going to chan
 the if statement at the end:
 ```
   if(firstNameBox.value && lastNameBox.value){
-    Meteor.users.update({_id:Meteor.user()._id}, {
+    Meteor.users.update({_id:Meteor.userId()}, {
       $set:{
         "profile.firstName":firstNameBox.value,
         "profile.lastName":lastNameBox.value
@@ -269,7 +269,7 @@ on the click for submit or something (see truetruefalse for an example).
 Somewhere in there you'll need an insert like this:
 ```
 Questions.insert({
-        userid:Meteor.user()._id,
+        userid:Meteor.userId(),
         true1:true1.value,
         true2:true2.value,
         false1:false1.value,
@@ -311,17 +311,22 @@ switch(q.type){
     ret = {};
 }
 ```
+## NOTE: Helper functions
+
+See lib/client_globals.js. Use Meteor.saveQuestion(templatetype,data) 
+or Meteor.saveResponse(correct,data);
+
 ##Question
 In the question use "{{#with QData}}" around it to get access to the
 information returned from getRandomQuestion.
 
 If you validate using javascript, do it in an event. If you want to
 validate and go to a different page, what I would do is something
-like this - change the type to something that will render the actual
-answer.
+like this - add an answertype which will override type to render
+the actual answer page.
 ```
 data = Session.get("QuestionData");" 
-data.type="resulttruetruefalse";
+data.answertype="resulttruetruefalse";
 Session.set("QuestionData",data);
 ```
 You can also set some info into the data, i.e. data.right = false.
