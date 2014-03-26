@@ -35,7 +35,7 @@ function quizWrapAction(){
 function questionWrapAction(){
   this.render();
   var qnum = Session.get("questionCount") || 0; //make sure it's integer
-  
+
   if(qnum < 5){
     //0-4 TTF
     this.render('questiontruetruefalse');
@@ -110,6 +110,7 @@ Router.map(function () {
 
 var mustBeSignedIn = function() {
     if (!(Meteor.loggingIn() || Meteor.user())) {
+      console.log("User not logged in");
       this.render('home');
       this.stop();
     }

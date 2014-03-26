@@ -14,15 +14,15 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         {{#unless DoneQuestions}}
-          <li><a href="prequiz">Pre-Quiz Question {{QuestionCount}}</a></li>
+          <li><a href="prequiz">Pre-Quiz</a></li>
         {{else}}
           {{#unless DoneAnswers}}
-            <li><a href="quiz">Start Quiz Question {{AnswerCount}}</a></li>
+            <li><a href="quiz">Quiz</a></li>
           {{/unless}}
         {{/unless}}
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        {{ loginButtons }} 
+        {{ loginButtons }}
       </ul>
     </div><!-- /.navbar-collapse -->
 
@@ -30,6 +30,14 @@
   </div>
 
   <div class="col-xs-12">
+    {{#unless DoneQuestions}}
+        <h2>Pre Quiz Question # {{QuestionCount}}</h2>
+    {{else}}
+        {{#unless DoneAnswers}}
+            <h2>Question # {{AnswerCount}}</h2>
+        {{/unless}}
+    {{/unless}}
+    <hr />
     {{yield}}
   </div>
 </template>
