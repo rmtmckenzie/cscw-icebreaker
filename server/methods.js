@@ -123,8 +123,14 @@ function saveFile(blob, name, path, encoding) {
   }
 }
 
+function saveVideoQuestion(data,questionobj){
+  questionobj.video = saveFile(video.video,video.videoformat,'video','binary');
+  questionobj.audio = saveFile(audio.audio,audio.audioformat,'video','binary');
+  Questions.insert(questionobj);
+}
+
 Meteor.methods({
   setUserNames: setUserNames,
   getRandomQuestion: getRandomQuestion,
-  saveFile: saveFile
+  saveVideoQuestion: saveVideoQuestion
 });

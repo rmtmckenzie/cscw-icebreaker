@@ -1,11 +1,15 @@
 QuestionCount = new Meteor.Collection('QuestionCount');
 AnswerCount = new Meteor.Collection('AnswerCount');
 
-Meteor.saveQuestion = function(type,dataobj){
+Meteor._getQuestionObj = function(type,dataobj){
   dataobj.userid = Meteor.userId();
   dataobj.type = type;
   dataobj.rand = Math.random();
-  Questions.insert(dataobj);
+  return dataobj;
+}
+
+Meteor.saveQuestion = function(type,dataobj){
+  Questions.insert(Meteor._getQuestionObj(type,dataobj));
   Deps.nonreactive(function(){
     var q = Session.get("QuestionCount") || 0;
     Session.set("QuestionCount",q+1);
