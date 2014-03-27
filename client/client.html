@@ -30,20 +30,16 @@
   </div>
 
   <div class="col-xs-12">
-    {{#unless DoneQuestions}}
-        <h2>Pre Quiz Question # {{QuestionCount}}</h2>
-    {{else}}
-        {{#unless DoneAnswers}}
-            <h2>Question # {{AnswerCount}}</h2>
-        {{/unless}}
-    {{/unless}}
-    <hr />
     {{yield}}
   </div>
 </template>
 
 <template name="people">
   <p>Todo!</p>
+</template>
+
+<template name="saving">
+{{Reload}}
 </template>
 
 <template name="messages">
@@ -62,6 +58,15 @@
   {{/if}}
 </template>
 
+<template name="nextprequiz">
+</template>
+
 <template name="questionwrapper">
-  {{yield 'questionrender'}}
+  <div>
+    <h2>Pre Quiz Question # {{QuestionCount}}</h2>
+    <hr />
+  </div>
+  <div>
+    {{yield 'questionrender'}}
+  </div>
 </template>

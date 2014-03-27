@@ -8,9 +8,9 @@
 </template>
 
 <template name="quizwrapper">
-{{#with quizobj}}
-  {{yield 'quizrender'}}
-{{/with}}
+<h2>Question # {{AnswerCount}}</h2>
+<hr />
+{{yield 'quizrender'}}
 </template>
 
 

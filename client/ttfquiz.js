@@ -32,15 +32,11 @@ Template.questiontruetruefalse.events = {
         true2:true2.value,
         false1:false1.value,
       });
-      Router.go('prequiz');
+      Router.go('nextprequiz');
 
     } else {
       console.log("Enter values!");
     }
-  },
-  'click button#prev' : function (event) {
-    //save anything entered....
-    window.history.back();
   }
 }
 
