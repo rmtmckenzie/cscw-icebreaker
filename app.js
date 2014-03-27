@@ -22,36 +22,36 @@ function quizWrapAction(){
   var q = Session.get('QuestionData');
   if(q){
     if(q.answertype){
-      this.render(q.answertype,'quizrender');
+      this.render(q.answertype,{to:'quizrender'});
     } else {
-      this.render(q.type,'quizrender');
+      this.render(q.type,{to:'quizrender'});
     }
   } else {
-    this.render('loading','quizrender');
+    this.render('loading',{to:'quizrender'});
   }
 }
-
-
+ 
 function questionWrapAction(){
+  var renderlist = [
+    "questiontruetruefalse", //1
+    "questiontruetruefalse", //2
+    "questiontruetruefalse", //3
+    "questiontruetruefalse", //4
+    "questiontruetruefalse", //5
+    "question_video", //6
+    "question_video", //7
+    "question_video", //8
+    "questiontruetruefalse", //9
+    "questiontruetruefalse", //10
+  ]
+
   this.render();
   var qnum = Session.get("QuestionCount") || 0; //make sure it's integer
 
-  if(qnum < 5){
-    //0-4 TTF
-    this.render('questiontruetruefalse');
-  } else if(qnum < 6){
-    //5 - video?
-    this.render('question_video');
-  } else if (qnum < 7){
-    //6 - ??
-    //todo change this and rest!
-    this.render('questiontruetruefalse');
-  } else if (qnum < 10){
-    // to 9 - ??
-    this.render('questiontruetruefalse');
+  if(renderlist[qnum]){
+    this.render(renderlist[qnum],{to:'questionrender'});
   } else {
-    //send user back to home!
-    Router.go('home');
+    this.redirect('home');
   }
 }
 
@@ -69,6 +69,17 @@ Router.map(function () {
     before: quizWrapBefore,
     action: quizWrapAction
   });
+
+  this.route("nextprequiz",{
+    path: '/nextprequiz',
+    template: 'nextprequiz',
+    layoutTemplate:'layout',
+    action: function(){
+      setTimeout(function(){
+        Router.go("prequiz");
+      },10);
+    }
+  })
 
   this.route('prequiz',{
     path: '/prequiz',
@@ -109,8 +120,9 @@ Router.map(function () {
 });
 
 var mustBeSignedIn = function() {
-    if (!(Meteor.loggingIn() || Meteor.user())) {
-      console.log("User not logged in");
+    var usr = Meteor.user();
+    if (!(usr && usr.profile.firstName && usr.profile.lastName)) {
+      console.log("User not logged in or hasn't set name");
       this.render('home');
       this.stop();
     }

@@ -6,6 +6,10 @@ Meteor.saveQuestion = function(type,dataobj){
   dataobj.type = type;
   dataobj.rand = Math.random();
   Questions.insert(dataobj);
+  Deps.nonreactive(function(){
+    var q = Session.get("QuestionCount") || 0;
+    Session.set("QuestionCount",q+1);
+  })
 }
 
 Meteor.saveResponse = function(correct,dataobj){
@@ -17,6 +21,10 @@ Meteor.saveResponse = function(correct,dataobj){
     userid_answer:Meteor.userId(),
     type:dataobj.type
   });
+  Deps.nonreactive(function(){
+    var q = Session.get("AnswerCount") || 0;
+    Session.set("AnswerCount",q+1);
+  })
 }
 
 //setup helpers for handlebars before the data
@@ -26,11 +34,11 @@ Handlebars.registerHelper('QData', function() {
 });
 
 Handlebars.registerHelper('DoneQuestions',function(){
-  return Session.get("QuestionCount") > 10;
+  return Session.get("QuestionCount") >= 10;
 })
 
 Handlebars.registerHelper('DoneAnswers',function(){
-  return Session.get("AnswerCount") > 10;
+  return Session.get("AnswerCount") >= 10;
 })
 
 Handlebars.registerHelper('QuestionCount',function(){

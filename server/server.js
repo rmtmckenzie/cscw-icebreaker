@@ -43,8 +43,6 @@ Meteor.publish("QuestionCount", function qc() {
       count = 0;
       // count = Questions.find({userid: this.userId}).count() || 0;
 
-  console.log("Subscribed?");
-
   // observeChanges only returns after the initial `added` callbacks
   // have run. Until then, we don't want to send a lot of
   // `self.changed()` messages - hence tracking the
@@ -54,11 +52,11 @@ Meteor.publish("QuestionCount", function qc() {
       count++;
       console.log("num",count);
       if (!initializing)
-        self.changed("QuestionCount", userid, {count: count});
+        self.changed("QuestionCount", userid || -1, {count: count});
     },
     removed: function (id) {
       count--;
-      self.changed("QuestionCount", userid, {count: count});
+      self.changed("QuestionCount", userid || -1, {count: count});
     }
     // don't care about changed
   });
@@ -68,7 +66,7 @@ Meteor.publish("QuestionCount", function qc() {
   // ready.
   initializing = false;
   self.ready();
-  self.added("QuestionCount", userid, {count: count});
+  self.added("QuestionCount", userid || -1, {count: count});
 
   // Stop observing the cursor when client unsubs.
   // Stopping a subscription automatically takes
@@ -92,11 +90,11 @@ Meteor.publish("AnswerCount", function ac() {
     added: function () {
       count++;
       if (!initializing)
-        self.changed("AnswerCount", userid, {count: count});
+        self.changed("AnswerCount", userid || -1, {count: count});
     },
     removed: function (id) {
       count--;
-      self.changed("AnswerCount", userid, {count: count});
+      self.changed("AnswerCount", userid || -1, {count: count});
     }
     // don't care about changed
   });
@@ -105,7 +103,7 @@ Meteor.publish("AnswerCount", function ac() {
   // observeChanges has returned, and mark the subscription as
   // ready.
   initializing = false;
-  self.added("AnswerCount", userid, {count: count});
+  self.added("AnswerCount", userid || -1, {count: count});
   self.ready();
 
   // Stop observing the cursor when client unsubs.
