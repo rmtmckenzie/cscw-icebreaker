@@ -23,9 +23,6 @@ Meteor.saveResponse = function(correct,dataobj){
 // is actualy set.
 Handlebars.registerHelper('QData', function() {
   return Session.get("QuestionData");
-<<<<<<< HEAD
-});
-=======
 });
 
 Handlebars.registerHelper('DoneQuestions',function(){
@@ -48,4 +45,3 @@ Meteor.autosubscribe(function(){
   Meteor.subscribe("QuestionCount");
   Meteor.subscribe("AnswerCount");
 })
->>>>>>> master
