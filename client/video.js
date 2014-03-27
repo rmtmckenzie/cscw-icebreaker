@@ -73,19 +73,34 @@ Template.answer_video.events = {
 
       mRecordRTC.getDataURL(function(dataURL) {
 
-        // Save the audio and video files associated with the questions
-        video = Meteor.call('saveFile', dataURL.audio, '.wav','video','binary');
-        audio = Meteor.call('saveFile', dataURL.video, '.webm','video','binary');
-
         console.log("Saving the newly created audio and video into a question object");
 
-        Meteor.saveQuestion("video",{
-          video:video,
-          audio:audio,
+        //get parameter to be put into database
+        var saveobj = Meteor._getQuestionObj("video",{
           question:question,
           answer:answer
         });
+
+        //save the audio files and insert question data in database
+        Meteor.call(
+          'saveVideoQuestion', 
+          { 
+            video:dataURL.video,videoformat:'.webm',
+            audio:dataURL.audio,audioformat:'.wav'
+          }, 
+          saveobj
+        );
+
+        //manually update questioncount as might take
+        // a while for server to finish actually updating
+        Deps.nonreactive(function(){
+          var q = Session.get("QuestionCount") || 0;
+          Session.set("QuestionCount",q+1);
+        })
+
         console.log("Saved new video question");
+        //turns webcam off
+        template.stream.stop();
       });
 
      // Go to next question
