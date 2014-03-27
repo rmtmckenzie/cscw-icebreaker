@@ -23,4 +23,29 @@ Meteor.saveResponse = function(correct,dataobj){
 // is actualy set.
 Handlebars.registerHelper('QData', function() {
   return Session.get("QuestionData");
+<<<<<<< HEAD
 });
+=======
+});
+
+Handlebars.registerHelper('DoneQuestions',function(){
+  return Session.get("QuestionCount") > 10;
+})
+
+Handlebars.registerHelper('DoneAnswers',function(){
+  return Session.get("AnswerCount") > 10;
+})
+
+Handlebars.registerHelper('QuestionCount',function(){
+  return (Session.get("QuestionCount") || 0) + 1;
+})
+
+Handlebars.registerHelper('AnswerCount',function(){
+  return (Session.get("AnswerCount") || 0) + 1;
+})
+
+Meteor.autosubscribe(function(){
+  Meteor.subscribe("QuestionCount");
+  Meteor.subscribe("AnswerCount");
+})
+>>>>>>> master

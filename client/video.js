@@ -79,13 +79,17 @@ Template.answer_video.events = {
 
         console.log("Saving the newly created audio and video into a question object");
 
-        Meteor.saveResponse("video",{
+        Meteor.saveQuestion("video",{
           video:video,
           audio:audio,
           question:question,
           answer:answer
         });
+        console.log("Saved new video question");
       });
+
+     // Go to next question
+     Router.go('prequiz');
   }
 };
 
