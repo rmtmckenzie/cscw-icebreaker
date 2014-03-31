@@ -1,4 +1,4 @@
-<template name="questiontruetruefalse">
+<template name="question_ttf">
 <h3>
 Please enter two true facts.
 <br>
@@ -23,7 +23,7 @@ Now, please enter something which is not true about yourself. Try to make it abo
 </br>
 </template>
 
-<template name="truetruefalse">
+<template name="response_ttf">
   {{#with QData}}
     <h3>
     {{user}} has stated the following three things. One of them is not true.
@@ -60,7 +60,7 @@ Now, please enter something which is not true about yourself. Try to make it abo
   {{/with}}
 </template>
 
-<template name="resulttruetruefalse">
+<template name="result_ttf">
   {{#with QData}}
     {{#if right}}
       <h2>Good job, you got it right!</h2>

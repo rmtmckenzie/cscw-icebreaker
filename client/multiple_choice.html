@@ -1,4 +1,4 @@
-<template name="question_multiplechoice">
+<template name="question_mc">
 <h3>
 Multiple Choice Question
 <br>
@@ -23,7 +23,7 @@ Now, please enter something which is not true about yourself. Try to make it abo
 </br>
 </template>
 
-<template name="truetruefalse">
+<template name="response_mc">
   {{#with QData}}
     <h3>
     {{user}} has stated the following three things. One of them is not true.
@@ -59,29 +59,4 @@ Now, please enter something which is not true about yourself. Try to make it abo
     </div>
   {{/with}}
 </template>
-
-<template name="resulttruetruefalse">
-  {{#with QData}}
-    {{#if right}}
-      <h2>Good job, you got it right!</h2>
-      <h2>This is not true about {{user}}:<h2>
-      <h3 class="lie">{{guess}}</h3>
-      <h2>These are true!</h2>
-      <h3 class="truth">{{other1}}</h3>
-      <h3 class="truth">{{other2}}</h3>
-    {{else}}
-      <h2>Good try, but you got it wrong.<h2>
-      <h2>This is true:</h2>
-      <h3 class="truth">{{guess}}</h3>
-      <h2>And this is also true:</h2>
-      <h3 class="truth">{{other}}</h3>
-      <h2>This is what's actually not true about {{user}}:<h2>
-      <h3 class="lie">{{lie}}</h3>
-    {{/if}}
-      <div style="text-align:center">
-        <button class="btn btn-success" id="next"><h2>Next</h2></button>
-      </div>
-  {{/with}}
-</template>
-
 

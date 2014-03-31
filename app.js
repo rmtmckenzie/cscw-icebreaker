@@ -54,7 +54,7 @@ function questionWrapAction(){
             "choices" : ['Chocolate Chips', 'Ke$ha', 'Brushing my teeth', 'Cold winter days', 'Fresh Prince']
         },
         {
-            "type" : "questiontruetruefalse", // 5
+            "type" : "question_ttf", // 5
             "question" : "Name 2 special skills or hobbies that no one knows you have."
         },
         {
@@ -63,7 +63,7 @@ function questionWrapAction(){
             "choices" : ["Firefighting pilot", "Prime Minister of Canada", "Priest", "Optometrist", "Surgeon", "Pro Skiier", "Hockey Player"]
         },
         {
-            "type" : "questiontruetruefalse", // 6
+            "type" : "question_ttf", // 6
             "question" : "One day, I would like to..."
         },
         {
@@ -76,8 +76,10 @@ function questionWrapAction(){
   this.render();
   var qnum = Session.get("QuestionCount") || 0; //make sure it's integer
 
+  Session.set("Question", renderlist[qnum]);
+
   if(renderlist[qnum]){
-    this.render(renderlist[qnum],{to:'questionrender'});
+    this.render(renderlist[qnum].type,{to:'questionrender'});
   } else {
     this.redirect('home');
   }
@@ -116,35 +118,19 @@ Router.map(function () {
     action: questionWrapAction
   });
 
-  this.route('ttf', {
-    path: '/asktruetruefalse',
-    template:'infotruetruefalse',
-    layoutTemplate: 'layout'
-  });
-
-  this.route('ttfquestion',{
-    path: '/truetruefalse',
-    template:'truetruefalse',
-    layoutTemplate: 'layout'
-  });
-
-  this.route('ttfanswer',{
+  /*this.route('ttfanswer',{
     path: '/truetruefalseanswered',
     template: 'resulttruetrueffalse',
     layoutTemplate: 'layout'
   });
+*/
 
-  this.route('question_video',{
-    path: '/question/video',
-    template: 'question_video',
+  this.route('postquestion_video',{
+    path: '/question/video/postquestion',
+    template: 'postquestion_video',
     layoutTemplate: 'layout'
   });
 
-  this.route('answer_video',{
-    path: '/question/video/answer',
-    template: 'answer_video',
-    layoutTemplate: 'layout'
-  });
 });
 
 var mustBeSignedIn = function() {

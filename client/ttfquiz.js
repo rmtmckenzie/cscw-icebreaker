@@ -1,5 +1,5 @@
 
-Template.questiontruetruefalse.events = {
+Template.question_ttf.events = {
   'click button#next' : function (event,template) {
     //post to db
     //save user, true statement, true statment, false statement, num
@@ -27,7 +27,7 @@ Template.questiontruetruefalse.events = {
     }
 
     if(true1.value && true2.value && false1.value){
-      Meteor.saveQuestion('truetruefalse',{
+      Meteor.saveQuestion('response_ttf',{
         true1:true1.value,
         true2:true2.value,
         false1:false1.value,
@@ -40,7 +40,7 @@ Template.questiontruetruefalse.events = {
   }
 }
 
-Template.truetruefalse.events = {
+Template.response_ttf.events = {
   'click button#submit': function(event, template){
     var val = template.find('input[name=quizttfradio]:checked');
     if(!val){
@@ -76,7 +76,7 @@ Template.truetruefalse.events = {
       data.other = data["s"+(6-val-data.a)];
     }
     //set this so that the results template is rendered.
-    data.type="resulttruetruefalse";
+    data.type="resultresponse_ttf";
     Session.set("QuestionData",data);
   },
   'click button#prev' : function (event) {
@@ -85,7 +85,7 @@ Template.truetruefalse.events = {
   }
 }
 
-Template.resulttruetruefalse.events = {
+Template.result_ttf.events = {
   'click button#next' : function(event){
     //this is the quizobj because of the #with
     Meteor.saveResponse(this.right,this);

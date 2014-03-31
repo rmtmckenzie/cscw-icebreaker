@@ -1,5 +1,5 @@
 
-Template.questiontruetruefalse.events = {
+Template.question_mc.events = {
   'click button#next' : function (event,template) {
     //post to db
     //save user, true statement, true statment, false statement, num
@@ -40,56 +40,11 @@ Template.questiontruetruefalse.events = {
   }
 }
 
-Template.truetruefalse.events = {
-  'click button#submit': function(event, template){
-    var val = template.find('input[name=quizttfradio]:checked');
-    if(!val){
-      val = template.find('div.mustrespond');
-      val.innerHTML="<h3>You must answer!<h3>";
-      return;
-    }
-    val = val.value;
-    data = Session.get("QuestionData");
-    if(val == data.a){
-      data.right = true;
-      switch(val){
-        case 1:
-          data.guess = data.s1;
-          data.other1 = data.s2;
-          data.other2 = data.s3;
-          break;
-        case 2:
-          data.guess = data.s2;
-          data.other1 = data.s1;
-          data.other2 = data.s3;
-          break;
-        case 3:
-          data.guess = data.s3;
-          data.other1 = data.s1;
-          data.other2 = data.s2;
-          break;
-      }
-    } else {
-      this.right = false;
-      data.guess = data["s"+val];
-      data.lie = data["s"+data.a];
-      data.other = data["s"+(6-val-data.a)];
-    }
-    //set this so that the results template is rendered.
-    data.type="resulttruetruefalse";
-    Session.set("QuestionData",data);
-  },
-  'click button#prev' : function (event) {
-    //save anything entered....
-    window.history.back();
-  }
-}
-
-Template.resulttruetruefalse.events = {
+Template.response_mc.events = {
   'click button#next' : function(event){
     //this is the quizobj because of the #with
     Meteor.saveResponse(this.right,this);
     Session.set("QuestionData");
   }
-}
+};
 

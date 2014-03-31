@@ -1,5 +1,5 @@
 
-Template.answer_video.rendered = function(){
+Template.postquestion_video.rendered = function(){
   var cam = this.find('#videoViewport')
       _this = this;
 
@@ -23,31 +23,31 @@ Template.answer_video.rendered = function(){
 
 
 var question,
-    answer;
+    response;
 
 Template.question_video.events = {
     'click button#videoquestion' : function(event,template){
-        // Check the question and answer, then store them for insert into DB later
+        // Check the question and response, then store them for insert into DB later
         // once we've recorded the video
         if(template.find('#question') && template.find('#question').value) {
            question = template.find('#question').value;
         }
 
-        if(template.find('#answer') && template.find('#answer').value) {
-           answer = template.find('#answer').value;
+        if(template.find('#response') && template.find('#response').value) {
+           response = template.find('#response').value;
         }
 
-        Router.go('answer_video');
+        Router.go('postquestion_video');
     }
 
 };
 
-Template.answer_video.flipped = function() {
+Template.postquestion_video.flipped = function() {
   var flipped = Deps.nonreactive(function () { return Session.get('WebcamFlipped'); });
   return flipped;
 };
 
-Template.answer_video.events = {
+Template.postquestion_video.events = {
   'click button#videoflip' : function(event,template){
     var flipped = Session.get('WebcamFlipped');
     console.log("Setting to "+ (!flipped ? "Flipped":"Not Flipped"));
@@ -78,16 +78,16 @@ Template.answer_video.events = {
         //get parameter to be put into database
         var saveobj = Meteor._getQuestionObj("video",{
           question:question,
-          answer:answer
+          response:response
         });
 
         //save the audio files and insert question data in database
         Meteor.call(
-          'saveVideoQuestion', 
-          { 
+          'saveVideoQuestion',
+          {
             video:dataURL.video,videoformat:'.webm',
             audio:dataURL.audio,audioformat:'.wav'
-          }, 
+          },
           saveobj
         );
 
