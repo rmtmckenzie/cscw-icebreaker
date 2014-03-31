@@ -30,20 +30,48 @@ function quizWrapAction(){
     this.render('loading',{to:'quizrender'});
   }
 }
- 
+
 function questionWrapAction(){
   var renderlist = [
-    "questiontruetruefalse", //1
-    "questiontruetruefalse", //2
-    "questiontruetruefalse", //3
-    "questiontruetruefalse", //4
-    "questiontruetruefalse", //5
-    "question_video", //6
-    "question_video", //7
-    "question_video", //8
-    "questiontruetruefalse", //9
-    "questiontruetruefalse", //10
-  ]
+        {
+            "type" : "question_video", // 1
+            "question" : "What continents have you traveled to?",
+            "choices" : ['Asia', 'Australia', 'North America', 'South America']
+        },
+        {
+            "type" : "question_mc", // 2
+            "question" : "What is a common activity most people have completed that you've never done?",
+            "choices" : ['Snowshoeing', 'Tennis', 'Flew in a plane', 'Canoeing', 'Maple Syrup', 'Drank coffee', 'Never had beer']
+        },
+        {
+            "type" : "question_mc", // 3
+            "question" : "What is your favourite movie?",
+            "choices" : ['Silence of the Lambs', 'Top Gun', 'Frozen', 'Zoolander', 'Shrek', 'A christmas carole', 'Lord of the Rings']
+        },
+        {
+            "type" : "question_mc", // 4
+            "question" : "What is your biggest guilty pleasure",
+            "choices" : ['Chocolate Chips', 'Ke$ha', 'Brushing my teeth', 'Cold winter days', 'Fresh Prince']
+        },
+        {
+            "type" : "questiontruetruefalse", // 5
+            "question" : "Name 2 special skills or hobbies that no one knows you have."
+        },
+        {
+            "type" : "question_video", // 6
+            "question" : "What is your dream job?",
+            "choices" : ["Firefighting pilot", "Prime Minister of Canada", "Priest", "Optometrist", "Surgeon", "Pro Skiier", "Hockey Player"]
+        },
+        {
+            "type" : "questiontruetruefalse", // 6
+            "question" : "One day, I would like to..."
+        },
+        {
+            "type" : "question_mc", // 7
+            "question" : "If you were a superhero, what would your power be?",
+            "choices" : ["Invisibility", "Teleportation", "Regeneration", "Elements", "Telepathy", "Additional limbs", "cyclone spinning"]
+        }
+  ];
 
   this.render();
   var qnum = Session.get("QuestionCount") || 0; //make sure it's integer
