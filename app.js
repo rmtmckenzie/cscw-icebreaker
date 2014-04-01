@@ -62,7 +62,8 @@ function questionWrapAction(){
         {
             "type" : "question_video", // 6
             "question" : "What is your dream job?",
-            "choices" : ["Firefighting pilot", "Prime Minister of Canada", "Priest", "Optometrist", "Surgeon", "Pro Skiier", "Hockey Player"]
+            "choices" : ["Firefighting pilot", "Prime Minister of Canada", "Priest", "Optometrist", "Surgeon", "Pro Skiier", "Hockey Player"],
+            "self_defn": true
         },
         {
             "type" : "question_ttf", // 6
@@ -121,7 +122,7 @@ Router.map(function () {
     action: questionWrapAction
   });
 
-  
+
 
   /*this.route('ttfanswer',{
     path: '/truetruefalseanswered',
