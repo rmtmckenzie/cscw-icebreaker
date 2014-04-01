@@ -124,8 +124,8 @@ function saveFile(blob, name, path, encoding) {
 }
 
 function saveVideoQuestion(data,questionobj){
-  questionobj.video = saveFile(video.video,video.videoformat,'video','binary');
-  questionobj.audio = saveFile(audio.audio,audio.audioformat,'video','binary');
+  questionobj.video = saveFile(data.video,data.videoformat,'video','binary');
+  questionobj.audio = saveFile(data.audio,data.audioformat,'video','binary');
   Questions.insert(questionobj);
 }
 
