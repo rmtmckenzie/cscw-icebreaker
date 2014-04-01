@@ -1,12 +1,16 @@
+var questionObj,
+    question_text,
+    prequiz_response,
+    choices;
 
 Template.postquestion_video.rendered = function(){
-  var cam = this.find('#videoViewport')
+  var cam = this.find('#videoViewport'),
       _this = this;
 
   this.mRecordRTC = new MRecordRTC();
   this.mRecordRTC.mediaType = {
-  	audio: true,
-  	video: true
+      audio: true,
+      video: true
   };
   navigator.getUserMedia(
   {
@@ -21,11 +25,6 @@ Template.postquestion_video.rendered = function(){
   );
 };
 
-
-var questioniObj,
-    question_text,
-    prequiz_response,
-    choices;
 
 Template.question_video.events = {
     'click button#videoquestion' : function(event,template){

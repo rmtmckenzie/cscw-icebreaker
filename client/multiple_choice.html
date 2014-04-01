@@ -1,26 +1,25 @@
 <template name="question_mc">
-<h3>
-Multiple Choice Question
-<br>
-See the placeholders for examples.
-</h3>
-<div class="form-group">
-  <input type="text" id="truth1" placeholder="I taught Judo for several years." class="form-control" >
-</div>
-<div class="form-group">
-  <input type="text" id="truth2" placeholder="I've never been outside of Canada and the USA." class="form-control" >
-</div>
-<h3>
-Now, please enter something which is not true about yourself. Try to make it about as plausible as the first two!
-</h3>
-<div class="form-group">
-  <input type="text" id="lie" placeholder="I spent the first year after high-school in my hometown." class="form-control" >
-</div>
-<br>
-<div style="text-align:center">
-  <button class="btn btn-success" id="next"><h2>Next</h2></button>
-</div>
-</br>
+    <h3>
+    Multiple Choice Question
+    </h3>
+    <br>
+    {{#with PreQuizData }}
+        <p>{{ question }}</p>
+        <div id="response-boxes" class="form-group">
+
+        {{#each choices}}
+            <input style="display:inline-block;margin-right:10px;" type="checkbox" name="{{this}}" value="{{this}}">
+            <label>{{this}}</label> <br/>
+        {{/each}}
+
+        {{#if self_defn }}
+            <label>Custom:</label>
+            <input id="self_defn" style="display:inline-block;margin-right:10px;" type="input" name="self_defn">
+        {{/if}}
+        </div>
+        <p>Once you are done, save it and got to the next screen to record an answer</p>
+        <button class="btn btn-warning" id="next"><h4>Next</h4></button>
+    {{/with}}
 </template>
 
 <template name="response_mc">

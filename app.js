@@ -41,17 +41,19 @@ function questionWrapAction(){
         {
             "type" : "question_mc", // 2
             "question" : "What is a common activity most people have completed that you've never done?",
-            "choices" : ['Snowshoeing', 'Tennis', 'Flew in a plane', 'Canoeing', 'Maple Syrup', 'Drank coffee', 'Never had beer']
+            "choices" : ['Snowshoeing', 'Tennis', 'Flew in a plane', 'Canoeing', 'Maple Syrup', 'Drank coffee', 'Never had beer', 'Ice Skating', 'Smoked a Cigarette', 'Owned a Dog', 'I\'ve done everything!']
         },
         {
             "type" : "question_mc", // 3
             "question" : "What is your favourite movie?",
-            "choices" : ['Silence of the Lambs', 'Top Gun', 'Frozen', 'Zoolander', 'Shrek', 'A christmas carole', 'Lord of the Rings']
+            "choices" : ['Silence of the Lambs', 'Top Gun', 'Frozen', 'Zoolander', 'Shrek', 'A christmas carole', 'Lord of the Rings'],
+            "self_defn": true
         },
         {
             "type" : "question_mc", // 4
             "question" : "What is your biggest guilty pleasure",
-            "choices" : ['Chocolate Chips', 'Ke$ha', 'Brushing my teeth', 'Cold winter days', 'Fresh Prince']
+            "choices" : ['Chocolate Chips', 'Ke$ha', 'Brushing my teeth', 'Cold winter days', 'Fresh Prince'],
+            "self_defn": true
         },
         {
             "type" : "question_ttf", // 5
@@ -69,7 +71,8 @@ function questionWrapAction(){
         {
             "type" : "question_mc", // 7
             "question" : "If you were a superhero, what would your power be?",
-            "choices" : ["Invisibility", "Teleportation", "Regeneration", "Elements", "Telepathy", "Additional limbs", "cyclone spinning"]
+            "choices" : ["Invisibility", "Teleportation", "Regeneration", "Elements", "Telepathy", "Additional limbs", "cyclone spinning"],
+            "self_defn": true
         }
   ];
 

@@ -1,42 +1,24 @@
-
 Template.question_mc.events = {
   'click button#next' : function (event,template) {
-    //post to db
-    //save user, true statement, true statment, false statement, num
-    var true1 = template.find('#truth1'),
-        true2 = template.find('#truth2'),
-        false1 = template.find('#lie'),
-        num = 1;
+    var questionObj = Session.get("Question"),
+        prequiz_response = $("#response-boxes input:checkbox:checked").first().val(),
+        custom = $("#self_defn").val();
 
-    if(!true1.value){
-      $(true1).parent().addClass('has-error').one('keydown',function (event) {
-        $(this).removeClass('has-error');
-      });
-    }
+    console.log(custom);
+    // Perform pre-checks on the form data
+    if(!questionObj || (!prequiz_response && (custom.trim().length === 0)))
+        return alert("Wowzers, please fill in at least a single value!");
 
-    if(!true2.value){
-      $(true2).parent().addClass('has-error').one('keydown',function (event) {
-        $(this).removeClass('has-error');
-      });
-    }
+    if($("#response-boxes input:checkbox:checked").length > 1)
+        return alert("Wowzers, please just choose one, thanks!");
 
-    if(!false1.value){
-      $(false1).parent().addClass('has-error').one('keydown',function (event) {
-        $(this).removeClass('has-error');
-      });
-    }
+    Meteor.saveQuestion('question_mc',{
+        prequiz_response : prequiz_response,
+        choices : questionObj.choices,
+        question : questionObj.question
+    });
 
-    if(true1.value && true2.value && false1.value){
-      Meteor.saveQuestion('truetruefalse',{
-        true1:true1.value,
-        true2:true2.value,
-        false1:false1.value,
-      });
-      Router.go('nextprequiz');
-
-    } else {
-      console.log("Enter values!");
-    }
+    Router.go('nextprequiz');
   }
 }
 
