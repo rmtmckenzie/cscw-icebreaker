@@ -34,7 +34,7 @@ Template.question_video.events = {
 
         questionObj = Session.get("Question");
         question_text = questionObj.question;
-        custom = $("#self_defn").val();
+        custom = $("#self_defn").val() || '';
         prequiz_response = $("#response-boxes input:checkbox:checked").first().val() || '';
 
         if((custom.trim().length === 0) && prequiz_response.length === 0)
