@@ -22,9 +22,9 @@ function quizWrapAction(){
   var q = Session.get('QuestionData');
   if(q){
     if(q.answertype){
-      this.render(q.answertype,{to:'quizrender'});
+        this.render(q.answertype,{to:'quizrender'});
     } else {
-      this.render(q.type,{to:'quizrender'});
+        this.render(q.type + '_response',{to:'quizrender'});
     }
   } else {
     this.render('loading',{to:'quizrender'});
@@ -34,43 +34,43 @@ function quizWrapAction(){
 function questionWrapAction(){
   var renderlist = [
         {
-            "type" : "question_video", // 1
+            "type" : "video", // 1
             "question" : "What continents have you traveled to?",
             "choices" : ['Asia', 'Australia', 'North America', 'South America', 'Antartica', 'Europe','Africa']
         },
         {
-            "type" : "question_mc", // 2
+            "type" : "multiple_choice", // 2
             "question" : "What is a common activity most people have completed that you've never done?",
             "choices" : ['Snowshoeing', 'Tennis', 'Flew in a plane', 'Canoeing', 'Maple Syrup', 'Drank coffee', 'Never had beer', 'Ice Skating', 'Smoked a Cigarette', 'Owned a Dog', 'I\'ve done everything!']
         },
         {
-            "type" : "question_mc", // 3
+            "type" : "multiple_choice", // 3
             "question" : "What is your favourite movie?",
             "choices" : ['Silence of the Lambs', 'Top Gun', 'Frozen', 'Zoolander', 'Shrek', 'A Christmas Carol', 'Lord of the Rings'],
             "self_defn": true
         },
         {
-            "type" : "question_mc", // 4
+            "type" : "multiple_choice", // 4
             "question" : "What is your biggest guilty pleasure",
             "choices" : ['Chocolate Chips', 'Ke$ha', 'Brushing my teeth', 'Cold winter days', 'Fresh Prince'],
             "self_defn": true
         },
         {
-            "type" : "question_ttf", // 5
+            "type" : "ttf", // 5
             "question" : "Name 2 special skills or hobbies that people wouldn't guess that you have."
         },
         {
-            "type" : "question_video", // 6
+            "type" : "video", // 6
             "question" : "What is your dream job?",
             "choices" : ["Firefighting pilot", "Prime Minister of Canada", "Priest", "Optometrist", "Surgeon", "Pro Skiier", "Hockey Player"],
             "self_defn": true
         },
         {
-            "type" : "question_ttf", // 6
+            "type" : "ttf", // 6
             "question" : "One day, I would like to..."
         },
         {
-            "type" : "question_mc", // 7
+            "type" : "multiple_choice", // 7
             "question" : "If you were a superhero, what would your power be?",
             "choices" : ["Invisibility", "Teleportation", "Regeneration", "Elements", "Telepathy", "Additional limbs", "cyclone spinning"],
             "self_defn": true
@@ -83,7 +83,7 @@ function questionWrapAction(){
   Session.set("Question", renderlist[qnum]);
 
   if(renderlist[qnum]){
-    this.render(renderlist[qnum].type,{to:'questionrender'});
+    this.render(renderlist[qnum].type + "_question",{to:'questionrender'});
   } else {
     this.redirect('home');
   }
@@ -113,7 +113,7 @@ Router.map(function () {
         Router.go("prequiz");
       },10);
     }
-  })
+  });
 
   this.route('prequiz',{
     path: '/prequiz',
@@ -131,9 +131,9 @@ Router.map(function () {
   });
 */
 
-  this.route('postquestion_video',{
+  this.route('video_postquestion',{
     path: '/question/video/postquestion',
-    template: 'postquestion_video',
+    template: 'video_postquestion',
     layoutTemplate: 'layout'
   });
 

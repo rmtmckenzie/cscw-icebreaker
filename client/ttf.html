@@ -1,4 +1,4 @@
-<template name="question_ttf">
+<template name="ttf_question">
   {{#with PreData}}
     <p>
       {{question}}
@@ -26,7 +26,7 @@
   {{/with}}
 </template>
 
-<template name="response_ttf">
+<template name="ttf_response">
   {{#with QData}}
     <h3>
     {{user}} has stated the following three things. One of them is not true.
@@ -63,7 +63,7 @@
   {{/with}}
 </template>
 
-<template name="result_ttf">
+<template name="ttf_result">
   {{#with QData}}
     {{#if right}}
       <h2>Good job, you got it right!</h2>

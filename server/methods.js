@@ -1,4 +1,6 @@
-var handleTTF = function(q){
+
+
+function handleTTF(q) {
   var ret = {};
   rand = Math.random();
   ret.true1= q.true1;
@@ -54,10 +56,10 @@ function getRandomQuestion(){
     argobj = {userid:{$ne:Meteor.userId()},rand:{$gt:rand}},
     q = Questions.findOne(argobj),
     ret,
-    user,
-    rand;
+    user;
+
   if(!q){
-    argobj.rand = {$lte:rand}
+    argobj.rand = {$lte:rand};
     q = Questions.findOne(argobj);
   }
   if(!q){
@@ -71,12 +73,20 @@ function getRandomQuestion(){
   }
 
   switch(q.type){
-    case 'truetruefalse':
+    case 'ttf':
       ret = handleTTF(q);
+      break;
+    case 'multiple_choice':
+      ret = q;
+      break;
+    case 'video':
+      ret = q;
       break;
     default:
       ret = {};
   }
+
+  console.log("Returning question: " + JSON.stringify(q));
   ret.type = q.type;
   ret.user = user.profile.firstName +' '+ user.profile.lastName;
   ret.userid = q.userid;
