@@ -43,26 +43,24 @@
 <p> A Multiple Choice Video question</p>
 <br />
     {{#with QData }}
-        <p>When asking {{ userid}} the question "{{ question }}", what do you imagine their response was?</p>
+        <p>When asking {{ user}} the question "{{ question }}", what do you imagine their response was?</p>
         <p> You can choose from the following options:</p>
 
           <div id="checkbox-answers">
             {{#each choices}}
-              <div>
-                <label>
-                  <input style="display:inline-block;margin-right:10px;" type="checkbox" name="{{this}}" value="{{this}}">
+              <div class="radio">
+                <label class='vidanswer'>
+                  <input type="radio" name="quizvidradio" value="{{this}}">
                   {{this}}
                 </label>
               </div>
-
             {{/each}}
         </div>
         <button class="btn btn-success" id="answer"><h4>Answer</h4></button>
     {{/with}}
 </template>
 
-<template name="video_result">
-
+<template name="video_answer">
     <p>Results page<p>
     {{#with QData }}
         {{#if right }}
@@ -71,7 +69,7 @@
         <h3>Whoops, close but you weren't quite correct</h3>
         {{/if}}
 
-        <p>{{userid}} left the following follow up message for their response</p>
+        <p>{{user}} left the following follow up message for their response</p>
         <video width="320" height="240" controls>
             <source src="/video/video.webm" type="video/webm">
         </video>
