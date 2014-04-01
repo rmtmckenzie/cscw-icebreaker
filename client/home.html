@@ -12,21 +12,21 @@
 
 <template name="home">
   <h1>
-    Welcome to the icebreaker app!
+    Welcome to the Icebreaker Application
   </h1>
 {{#unless currentUser}}
-  <h2>
+  <p>
     Before we get started here, you need to log in with your UVic email address
     using the dropdown in the top right of the screen.
-  </h2>  
+  </p>
 {{else}}
   <span class="glyphicon glyphicon-ok"></span>
   <span> Great, you're logged in! </span>
 
   {{#unless namedUser}}
-    <h2>
+    <p>
       Please enter your first and last name/initial:
-    </h2>
+    </p>
     <form role="form" class="form-inline">
       {{> names }}
       <button type="submit" class="btn btn-default" id="submitnames">Submit</button>
@@ -52,14 +52,15 @@
 </template>
 
 <template name="beforePreQuiz">
-  <h2>
+  <p>
     In the next few minutes, you'll be entering some information into our system.
     This information will be used to generate questions to ask other people who use
     the system so they can get to know you!
-  </h2>
-  <h2>
+  </p>
+  <br />
+  <p>
     When you're ready to get started press the Go button.
-  </h2>
+  </p>
   <br>
   <button class="btn btn-success center-block" id="goprequiz"><h2>Go!</h2></button>
   <br>
@@ -69,21 +70,23 @@
   <br>
   <span class="glyphicon glyphicon-ok"></span>
   <span> Perfect, you've answered the pre-quiz questions! </span>
-  <h2>
+  <br />
+  <br />
+  <p>
     Once everyone else is ready, you'll answer a few questions about the other
     participants. Don't worry, this isn't about getting the answers correct or
     not - it's about getting to know the other participants a bit!
-  </h2>
-  <h2>
+  </p>
+  <p>
     When we say so, get started by pressing the Go button.
-  </h2>
+  </p>
   <br>
   <button class="btn btn-success center-block" id="goquiz">Go!</button>
 </template>
 
 <template name="done">
   <h1>
-    Thanks for parcipating! 
+    Thanks for parcipating!
   </h1>
   <h2>
     We hope you learned a little bit about the other people in your group!

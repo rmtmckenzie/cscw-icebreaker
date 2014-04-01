@@ -31,7 +31,7 @@ Router.map(function () {
         throw new Meteor.Error(500,"No file found","No video at video/"+this.params._filename);
       }
 
-      buffer = fs.readFileSync(filename,{encoding:"binary"}); 
+      buffer = fs.readFileSync(filename,{encoding:"binary"});
       this.response.end(buffer,'binary');
 
     }
