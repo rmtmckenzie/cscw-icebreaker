@@ -46,11 +46,11 @@ Handlebars.registerHelper('PreData', function(){
 });
 
 Handlebars.registerHelper('DoneQuestions',function(){
-  return Session.get("QuestionCount") >= 10;
+  return Session.get("QuestionCount") >= 7;
 });
 
 Handlebars.registerHelper('DoneAnswers',function(){
-  return Session.get("AnswerCount") >= 10;
+  return Session.get("AnswerCount") >= 20;
 })
 
 Handlebars.registerHelper('QuestionCount',function(){
