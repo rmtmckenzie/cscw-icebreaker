@@ -4,6 +4,7 @@ var handleTTF = function(q){
   ret.true1= q.true1;
   ret.true2= q.true2;
   ret.false1 = q.false1;
+  ret.question = q.question;
 
   if(rand <= 0.16666){
     ret.s1 = q.true1;
@@ -75,7 +76,7 @@ function getRandomQuestion(){
       ret = handleTTF(q);
       break;
     default:
-      ret = {};
+      ret = q;
   }
   ret.type = q.type;
   ret.user = user.profile.firstName +' '+ user.profile.lastName;

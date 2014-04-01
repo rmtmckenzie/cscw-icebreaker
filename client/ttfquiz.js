@@ -29,6 +29,7 @@ Template.question_ttf.events = {
 
     if(questionObj && true1.value && true2.value && false1.value){
       Meteor.saveQuestion(questionObj.type, {
+          question:questionObj.question,
           true1:true1.value,
           true2:true2.value,
           false1:false1.value
