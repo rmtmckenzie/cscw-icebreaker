@@ -118,6 +118,8 @@ Router.map(function () {
     action: questionWrapAction
   });
 
+  
+
   /*this.route('ttfanswer',{
     path: '/truetruefalseanswered',
     template: 'resulttruetrueffalse',
@@ -140,6 +142,6 @@ var mustBeSignedIn = function() {
       this.render('home');
       this.stop();
     }
-  }
+}
 
-Router.before(mustBeSignedIn, {except: ['home']});
+Router.before(mustBeSignedIn, {except: ['home','testing']});

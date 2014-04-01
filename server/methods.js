@@ -84,20 +84,29 @@ function getRandomQuestion(){
   return ret;
 }
 
+function cleanPath (str) {
+  if (str) {
+    return str.replace(/\.\./g,'').replace(/\/+/g,'').
+      replace(/^\/+/,'').replace(/\/+$/,'');
+  }
+}
+function cleanName (str) {
+  return str.replace(/\.\./g,'').replace(/\//g,'');
+}
+
 function saveFile(blob, name, path, encoding) {
   var path = cleanPath(path),
     fs = Meteor.fs,
     name = cleanName(name || 'file'),
     options = {encoding: encoding || 'binary'},
-    chroot = Meteor.assets_folder,
     fileBuffer,
     filePath,
-    rand = Math.random().toString(36).substring(6);
+    fileName = Math.random().toString(36).substring(6) + name;
 
   // Clean up the path. Remove any initial and final '/' -we prefix them-,
   // any sort of attempt to go to the parent directory '..' and any empty directories in
   // between '/////' - which may happen after removing '..'
-  path = chroot + (path ? '/' + path + '/' : '/');
+  path = Meteor.getUploadsPath(path);
 
   if(!fs.existsSync(path) ) {
       fs.mkdirSync(path, '755');
@@ -105,22 +114,12 @@ function saveFile(blob, name, path, encoding) {
 
   blob = blob.split(',').pop();
   fileBuffer = new Buffer(blob, "base64");
-  filePath = path + rand + name;
+  filePath = path + fileName;
 
   fs.writeFileSync(filePath, fileBuffer, options);
   console.log('The file ' + filePath + ' (' + encoding + ') was saved to ');
 
-  return filePath;
-
-  function cleanPath (str) {
-    if (str) {
-      return str.replace(/\.\./g,'').replace(/\/+/g,'').
-        replace(/^\/+/,'').replace(/\/+$/,'');
-    }
-  }
-  function cleanName (str) {
-    return str.replace(/\.\./g,'').replace(/\//g,'');
-  }
+  return fileName;
 }
 
 function saveVideoQuestion(data,questionobj){

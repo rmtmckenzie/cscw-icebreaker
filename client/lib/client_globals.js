@@ -37,9 +37,13 @@ Handlebars.registerHelper('QData', function() {
   return Session.get("QuestionData");
 });
 
+Handlebars.registerHelper('PreData', function(){
+  return Session.get("Question");
+});
+
 Handlebars.registerHelper('DoneQuestions',function(){
   return Session.get("QuestionCount") >= 10;
-})
+});
 
 Handlebars.registerHelper('DoneAnswers',function(){
   return Session.get("AnswerCount") >= 10;
