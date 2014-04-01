@@ -124,12 +124,11 @@ Router.map(function () {
 
 
 
-  /*this.route('ttfanswer',{
-    path: '/truetruefalseanswered',
-    template: 'resulttruetrueffalse',
+  this.route('video_result',{
+    path: '/video/result',
+    template: 'video_result',
     layoutTemplate: 'layout'
   });
-*/
 
   this.route('video_postquestion',{
     path: '/question/video/postquestion',

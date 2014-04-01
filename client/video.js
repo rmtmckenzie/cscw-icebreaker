@@ -124,3 +124,25 @@ Template.video_postquestion.events = {
   }
 };
 
+Template.video_response.events = {
+  'click button#answer' : function(event,template){
+    // 1. Check the answer,
+    answer = $("#checkbox-answers input:checkbox:checked").first().val() || '';
+    questionObj = Session.get("QuestionData");
+
+    if(answer.length === 0)
+        return alert("Please answer the question before continuing");
+
+    // 2. Give them the result
+    if(answer === questionObj.prequiz_response) {
+        questionObj.right = true;
+    } else {
+            questionObj.right = false;
+    }
+
+    Session.set('QuestionData', questionObj);
+    // 3. Send it to the video response showing the result
+    Router.go('video_result');
+  }
+
+};
