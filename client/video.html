@@ -71,7 +71,8 @@
 
         <p>{{user}} left the following follow up message for their response</p>
         <video width="320" height="240" controls>
-            <source src="/video/video.webm" type="video/webm">
+            <source src="/video/{{ video }}" type="video/webm">
+            <source src="/audio/{{ audio }}" type="audio/wav">
         </video>
         <br>
         <button class="btn btn-success" id="next"><h4>Next</h4></button>

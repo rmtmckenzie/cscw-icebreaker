@@ -37,9 +37,9 @@ Template.video_question.events = {
         questionObj = Session.get("Question");
         question_text = questionObj.question;
         custom = $("#self_defn").val() || '';
-        prequiz_response = $("#response-boxes input:radio:checked").first().val() || '';
+        prequiz_response = $("#response-boxes input:checkbox:checked").first().val() || '';
 
-        if((custom.trim().length === 0) && prequiz_response.length === 0)
+        if((custom.trim().length === 0) && prequiz_response.trim().length === 0)
             return alert("You must submit at least a single value");
 
         choices = questionObj.choices;
