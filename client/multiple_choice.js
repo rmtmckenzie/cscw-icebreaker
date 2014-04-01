@@ -4,7 +4,7 @@ Template.question_mc.events = {
         prequiz_response = $("#response-boxes input:checkbox:checked").first().val(),
         custom = $("#self_defn").val() || '';
 
-    console.log(custom);
+    //console.log(custom);
     // Perform pre-checks on the form data
     if(!questionObj || (!prequiz_response && (custom.trim().length === 0)))
         return alert("Wowzers, please fill in at least a single value!");

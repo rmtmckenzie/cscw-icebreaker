@@ -19,6 +19,8 @@ Template.postquestion_video.rendered = function(){
       video: true
     }, function(stream) {
       console.log("Got stream...");
+      _this.find("#videoflip").disabled = false;
+      _this.find("#videorecord").disabled = false;
       cam.src = window.URL.createObjectURL(stream);
       cam.play();
       _this.stream = stream;
@@ -60,6 +62,8 @@ Template.postquestion_video.events = {
   },
   'click button#videorecord' : function(event,template){
     var mRecordRTC = template.mRecordRTC;
+    template.find("#videodone").disabled = false;
+    template.find("#videorecord").disabled = true;
     if(!template.recording){
       mRecordRTC.addStream(template.stream);
       mRecordRTC.startRecording();
@@ -77,12 +81,19 @@ Template.postquestion_video.events = {
 
       mRecordRTC.getDataURL(function(dataURL) {
 
+        var flipped = false;
+
+        Deps.nonreactive(function(){
+          fipped = Session.get("WebcamFlipped") || 0;
+        });
+
         console.log("Saving the newly created audio and video into a question object");
 
         //get parameter to be put into database
         var saveobj = Meteor._getQuestionObj(questionObj.type,{
           question:question_text,
           choices:choices,
+          flipped:flipped,
           prequiz_response : custom.trim().length > 0 ? custom.trim() : prequiz_response
         });
 
