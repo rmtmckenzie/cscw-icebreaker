@@ -46,7 +46,7 @@ function questionWrapAction(){
         {
             "type" : "question_mc", // 3
             "question" : "What is your favourite movie?",
-            "choices" : ['Silence of the Lambs', 'Top Gun', 'Frozen', 'Zoolander', 'Shrek', 'A christmas carole', 'Lord of the Rings'],
+            "choices" : ['Silence of the Lambs', 'Top Gun', 'Frozen', 'Zoolander', 'Shrek', 'A Christmas Carol', 'Lord of the Rings'],
             "self_defn": true
         },
         {
@@ -57,7 +57,7 @@ function questionWrapAction(){
         },
         {
             "type" : "question_ttf", // 5
-            "question" : "Name 2 special skills or hobbies that no one knows you have."
+            "question" : "Name 2 special skills or hobbies that people wouldn't guess that you have."
         },
         {
             "type" : "question_video", // 6

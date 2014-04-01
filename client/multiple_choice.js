@@ -2,9 +2,9 @@ Template.question_mc.events = {
   'click button#next' : function (event,template) {
     var questionObj = Session.get("Question"),
         prequiz_response = $("#response-boxes input:checkbox:checked").first().val(),
-        custom = $("#self_defn").val();
+        custom = $("#self_defn").val() || '';
 
-    console.log(custom);
+    //console.log(custom);
     // Perform pre-checks on the form data
     if(!questionObj || (!prequiz_response && (custom.trim().length === 0)))
         return alert("Wowzers, please fill in at least a single value!");
