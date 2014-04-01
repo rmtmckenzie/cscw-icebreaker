@@ -4,7 +4,7 @@ var questionObj,
     choices,
     custom;
 
-Template.postquestion_video.rendered = function(){
+Template.video_postquestion.rendered = function(){
   var cam = this.find('#videoViewport'),
       _this = this;
 
@@ -29,7 +29,7 @@ Template.postquestion_video.rendered = function(){
 };
 
 
-Template.question_video.events = {
+Template.video_question.events = {
     'click button#videoquestion' : function(event,template){
         // Check the question and response, then store them for insert into DB later
         // once we've recorded the video
@@ -43,17 +43,17 @@ Template.question_video.events = {
             return alert("You must submit at least a single value");
 
         choices = questionObj.choices;
-        Router.go('postquestion_video');
+        Router.go('video_postquestion');
     }
 
 };
 
-Template.postquestion_video.flipped = function() {
+Template.video_postquestion.flipped = function() {
   var flipped = Deps.nonreactive(function () { return Session.get('WebcamFlipped'); });
   return flipped;
 };
 
-Template.postquestion_video.events = {
+Template.video_postquestion.events = {
   'click button#videoflip' : function(event,template){
     var flipped = Session.get('WebcamFlipped');
     console.log("Setting to "+ (!flipped ? "Flipped":"Not Flipped"));

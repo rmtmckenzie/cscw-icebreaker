@@ -1,4 +1,4 @@
-Template.question_mc.events = {
+Template.multiple_choice_question.events = {
   'click button#next' : function (event,template) {
     var questionObj = Session.get("Question"),
         prequiz_response = $("#response-boxes input:checkbox:checked").first().val(),
@@ -22,7 +22,7 @@ Template.question_mc.events = {
   }
 }
 
-Template.response_mc.events = {
+Template.multiple_choice_response.events = {
   'click button#next' : function(event){
     //this is the quizobj because of the #with
     Meteor.saveResponse(this.right,this);

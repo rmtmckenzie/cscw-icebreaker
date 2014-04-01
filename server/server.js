@@ -41,18 +41,18 @@ Router.map(function () {
 Questions.allow({
   insert: function(userId, data){
     switch(data.type){
-    case "question_ttf":
+    case "ttf":
       check(data.true1, NonEmptyString);
       check(data.true2, NonEmptyString);
       check(data.false1, NonEmptyString);
       break;
-    case "question_video":
+    case "video":
         check(data.video, NonEmptyString);
         check(data.audio, NonEmptyString);
         check(data.question, NonEmptyString);
         check(data.answer, NonEmptyString);
         break;
-    case "question_mc":
+    case "multiple_choice":
         check(data.prequiz_response, NonEmptyString);
         check(data.choices, [String]);
         check(data.question, NonEmptyString);

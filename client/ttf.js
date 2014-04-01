@@ -1,5 +1,5 @@
 
-Template.question_ttf.events = {
+Template.ttf_question.events = {
   'click button#next' : function (event,template) {
     //post to db
     //save user, true statement, true statment, false statement, num
@@ -41,7 +41,7 @@ Template.question_ttf.events = {
   }
 }
 
-Template.response_ttf.events = {
+Template.ttf_response.events = {
   'click button#submit': function(event, template){
     var val = template.find('input[name=quizttfradio]:checked');
     if(!val){
@@ -77,7 +77,7 @@ Template.response_ttf.events = {
       data.other = data["s"+(6-val-data.a)];
     }
     //set this so that the results template is rendered.
-    data.type="resultresponse_ttf";
+    //TODO: We need to now send it to the next rendering for the question
     Session.set("QuestionData",data);
   },
   'click button#prev' : function (event) {
@@ -86,7 +86,7 @@ Template.response_ttf.events = {
   }
 }
 
-Template.result_ttf.events = {
+Template.ttf_result.events = {
   'click button#next' : function(event){
     //this is the quizobj because of the #with
     Meteor.saveResponse(this.right,this);

@@ -1,5 +1,4 @@
-
-<template name="question_video">
+<template name="video_question">
     {{#with PreQuizData}}
         <p>{{ question }}</p>
 
@@ -10,7 +9,7 @@
                 <label>
                   <input style="display:inline-block;margin-right:10px;" type="checkbox" name="{{this}}" value="{{this}}">
                   {{this}}
-                </label> 
+                </label>
               </div>
             {{/each}}
 
@@ -25,7 +24,7 @@
     {{/with}}
 </template>
 
-<template name="postquestion_video">
+<template name="video_postquestion">
   <h3>Webcam Question Recording</h3>
 
   <div class="videoHolder {{#if flipped}}flipY{{/if}}">
@@ -37,4 +36,9 @@
     </div>
   </div>
   <p> 1. Record some additional data in the form of a video to the question asked previously.</p>
+  </template>
+
+
+<template name="video_response">
+<p> A Video question</p>
 </template>
