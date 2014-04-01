@@ -19,9 +19,7 @@
       <input type="text" id="lie" class="form-control" >
     </div>
     <br>
-    <div style="text-align:center">
-      <button class="btn btn-success" id="next"><h2>Next</h2></button>
-    </div>
+    <button class="btn btn-success" id="next"><h2>Next</h2></button>
     </br>
   {{/with}}
 </template>
@@ -59,15 +57,13 @@
     </div>
     <br>
 
-    <div style="text-align:center">
-      <button class="btn btn-info" id="submit">
-        <h2>Submit</h2>
-      </button>
-    </div>
+    <button class="btn btn-info" id="submit">
+      <h2>Submit</h2>
+    </button>
   {{/with}}
 </template>
 
-<template name="ttf_result">
+<template name="ttf_answer">
   {{#with QData}}
     {{#if right}}
       <h2>Good job, you got it right!</h2>
@@ -85,9 +81,7 @@
       <h2>This is what's actually not true about {{user}}:<h2>
       <h3 class="lie">{{lie}}</h3>
     {{/if}}
-      <div style="text-align:center">
-        <button class="btn btn-success" id="next"><h2>Next</h2></button>
-      </div>
+      <button class="btn btn-success" id="next"><h2>Next</h2></button>
   {{/with}}
 </template>
 

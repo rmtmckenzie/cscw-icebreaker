@@ -90,7 +90,7 @@ Template.ttf_response.events = {
   }
 }
 
-Template.ttf_result.events = {
+Template.ttf_answer.events = {
   'click button#next' : function(event){
     //this is the quizobj because of the #with
     Meteor.saveResponse(this.right,this);

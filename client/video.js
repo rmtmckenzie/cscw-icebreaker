@@ -151,5 +151,11 @@ Template.video_response.events = {
     // 3. Send it to the video response showing the result
     //Router.go('video_result');
   }
-
 };
+
+Template.video_answer.events = {
+  'click button#next' : function(event, template){
+    Meteor.saveResponse(this.right,this);
+    Session.set('QuestionData');
+  }
+}
