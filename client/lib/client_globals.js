@@ -33,6 +33,10 @@ Meteor.saveResponse = function(correct,dataobj){
 
 //setup helpers for handlebars before the data
 // is actualy set.
+Handlebars.registerHelper('PreQuizData', function() {
+  return Session.get("Question");
+});
+
 Handlebars.registerHelper('QData', function() {
   return Session.get("QuestionData");
 });

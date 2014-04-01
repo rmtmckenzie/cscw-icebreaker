@@ -1,12 +1,19 @@
-<template name="question_video">
-<p>Think up a question as it might relate to a personal detail about the travel you enjoy, or have done in the past!</p>
-<div class="form-group">
-  <input type="text" id="question" placeholder="What would you think my favourite vacation spot would be?" class="form-control" >
-  <input type="text" id="answer" placeholder="Mexico!!" class="form-control" >
-</div>
-<p>Once you are done, save it and got to the next screen to record an answer</p>
-<button class="btn btn-warning" id="videoquestion"><h4>Next</h4></button>
 
+<template name="question_video">
+    {{#with PreQuizData}}
+        <p>{{ question }}</p>
+
+        <div id="response-boxes" class="form-group">
+
+            {{#each choices}}
+               <input style="display:inline-block;margin-right:10px;" type="checkbox" name="{{this}}" value="{{this}}">
+<label>{{this}}</label> <br/>
+            {{/each}}
+
+        </div>
+        <p>Once you are done, save it and got to the next screen to record an answer</p>
+        <button class="btn btn-warning" id="videoquestion"><h4>Next</h4></button>
+    {{/with}}
 </template>
 
 <template name="postquestion_video">

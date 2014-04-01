@@ -36,7 +36,7 @@ function questionWrapAction(){
         {
             "type" : "question_video", // 1
             "question" : "What continents have you traveled to?",
-            "choices" : ['Asia', 'Australia', 'North America', 'South America']
+            "choices" : ['Asia', 'Australia', 'North America', 'South America', 'Antartica', 'Europe','Africa']
         },
         {
             "type" : "question_mc", // 2

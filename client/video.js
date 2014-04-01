@@ -22,21 +22,22 @@ Template.postquestion_video.rendered = function(){
 };
 
 
-var question,
-    response;
+var questioniObj,
+    question_text,
+    prequiz_response,
+    choices;
 
 Template.question_video.events = {
     'click button#videoquestion' : function(event,template){
         // Check the question and response, then store them for insert into DB later
         // once we've recorded the video
-        if(template.find('#question') && template.find('#question').value) {
-           question = template.find('#question').value;
-        }
 
-        if(template.find('#response') && template.find('#response').value) {
-           response = template.find('#response').value;
-        }
-
+        questionObj = Session.get("Question");
+        question_text = questionObj.question;
+        prequiz_response = $("#response-boxes input:checkbox:checked").map(function(){
+                  return $(this).val();
+                      }).get();
+        choices = questionObj.choices;
         Router.go('postquestion_video');
     }
 
@@ -77,8 +78,9 @@ Template.postquestion_video.events = {
 
         //get parameter to be put into database
         var saveobj = Meteor._getQuestionObj("video",{
-          question:question,
-          response:response
+          question:question_text,
+          choices:choices,
+          prequiz_response:prequiz_response
         });
 
         //save the audio files and insert question data in database
