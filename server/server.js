@@ -8,7 +8,7 @@ Meteor.startup(function () {
   if( path.basename( fs.realpathSync( meteor_root + '/../../../' ) ) == '.meteor' ){
       application_root =  fs.realpathSync( meteor_root + '/../../../../' );
   }
-  Meteor.assets_folder = application_root + '/public/uploads/';
+  Meteor.assets_folder = application_root + '/.uploads';
 
 });
 
@@ -16,60 +16,27 @@ Meteor.getUploadsPath = function(path){
   return Meteor.assets_folder + (path ? '/' + path + '/' : '/');
 }
 
-// Router.map(function () {
-//   this.route('testing', {
-//     where: 'server',
-//     path: '/testing/:_filename',
-//     action: function () {
-//       var fs = Meteor.fs,
-//           path = Meteor.getUploadsPath("video"),
-//           filename = path + this.params._filename,
-//           buffer,
-//           acceptEncoding = this.request.headers['accept-encoding'];
+Router.map(function () {
+  this.route('video', {
+    where: 'server',
+    path: '/video/:_filename',
+    action: function () {
+      var fs = Meteor.fs,
+          path = Meteor.getUploadsPath("video"),
+          filename = path + this.params._filename,
+          buffer,
+          acceptEncoding = this.request.headers['accept-encoding'];
 
-//       if(acceptEncoding && acceptEncoding.indexOf('*') >= 0){
-//         // console.log("asdf");
+      if(!fs.existsSync(path)){
+        throw new Meteor.Error(500,"No file found","No video at video/"+this.params._filename);
+      }
 
-//         if(!fs.existsSync(path)){
-//           throw new Meteor.Error(500,"No file found","No video at video/"+this.params._filename);
-//         }
+      buffer = fs.readFileSync(filename,{encoding:"binary"}); 
+      this.response.end(buffer,'binary');
 
-//         buffer = fs.readFileSync(filename,{encoding:"binary"});
-
-//         this.response.writeHead(206, {
-//           //'Content-Type': 'video/webm',
-//           // 'encoding': 'binary',
-//           // 'connection':'keep-alive',
-//           // 'Content-type':'video/webm',
-//           // 'encoding':'binary',
-//           // 'transfer-encoding':'chunked',
-//           // 'vary':'Accept-Encoding'
-//           'accept-ranges':'bytes',
-//           'cache-control':'public, max-age=86400',
-//           'connection':'keep-alive',
-//           'content-length':'265497',
-//           'content-type':'video/webm',
-//           // 'date':'Tue, 01 Apr 2014 03:37:21 GMT',
-//           // 'etag':"265497-1396323255000",
-//           // 'last-modified':'Tue, 01 Apr 2014 03:34:15 GMT',
-//           'vary':'Accept-Encoding'
-//         });
-
-//         this.response.end(buffer);
-//       } else {
-//         // console.log("fdsa");
-
-//         this.response.writeHead(200
-//           ,
-//           {
-//             // 'encoding':'binary',
-//             'content-Type':'video/webm'
-//           }
-//         );
-//       }
-//     }
-//   });
-// });
+    }
+  });
+});
 
 Questions.allow({
   insert: function(userId, data){
@@ -86,7 +53,8 @@ Questions.allow({
         check(data.answer, NonEmptyString);
         break;
     default:
-      throw new Error("No question type defined");
+      //allow
+      // throw new Error("No question type defined");
     }
     check(data.userid, Match.Where(function(x){ return userId === x}));
     check(data.rand, Number);

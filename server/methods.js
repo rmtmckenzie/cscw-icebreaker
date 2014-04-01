@@ -117,7 +117,7 @@ function saveFile(blob, name, path, encoding) {
   filePath = path + fileName;
 
   fs.writeFileSync(filePath, fileBuffer, options);
-  console.log('The file ' + filePath + ' (' + encoding + ') was saved to ');
+  console.log('The file ' + fileName + ' (' + encoding + ') was saved to ' + filePath);
 
   return fileName;
 }
