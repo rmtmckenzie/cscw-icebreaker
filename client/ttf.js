@@ -51,7 +51,9 @@ Template.ttf_response.events = {
       return;
     }
     val = val.value;
-    data = Session.get("QuestionData");
+    Deps.nonreactive(function(){
+      data = Session.get("QuestionData");
+    });
     if(val == data.a){
       data.right = true;
       switch(val){
@@ -77,6 +79,7 @@ Template.ttf_response.events = {
       data.lie = data["s"+data.a];
       data.other = data["s"+(6-val-data.a)];
     }
+    data.answered = true;
     //set this so that the results template is rendered.
     //TODO: We need to now send it to the next rendering for the question
     Session.set("QuestionData",data);

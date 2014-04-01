@@ -28,34 +28,27 @@
 
 <template name="multiple_choice_response">
   {{#with QData}}
-    <h3>
-    {{user}} has stated the following three things. One of them is not true.
-    </h3>
-    <h3>Select the one you think is a lie!</h3>
-    <div class="radio">
-      <label class='ttfanswer'>
-        <input type="radio" name="quizttfradio" id="quizttfradio1" value="1">
-        {{s1}}
-      </label>
-    </div>
-    <div class="radio">
-      <label class='ttfanswer'>
-        <input type="radio" name="quizttfradio" id="quizttfradio2" value="2">
-        {{s2}}
-      </label>
-    </div>
-    <div class="radio">
-      <label class='ttfanswer'>
-        <input type="radio" name="quizttfradio" id="quizttfradio3" value="3">
-        {{s3}}
-      </label>
-    </div>
+    <p>
+      {{user}} answered the following question:
+    </p>
+    <p class="questioninquiz">
+      {{question}}
+    </p>
+    <p>
+      Select the answer you think they picked!
+    </p>
+    {{#each choices}}
+      <div class="radio">
+        <label class='mcanswer'>
+          <input type="radio" name="quizmcradio" value="{{this}}">
+          {{this}}
+        </label>
+      </div>
+    {{/each}}
     <div class="mustrespond">
     </div>
     <br>
-
     <div style="text-align:center">
-      <button class="btn btn-warning" id="prev"><h2>Previous</h2></button>
       <button class="btn btn-info" id="submit">
         <h2>Submit</h2>
       </button>
@@ -63,3 +56,32 @@
   {{/with}}
 </template>
 
+<template name="multiple_choice_answer">
+  {{#with QData}}
+    {{#if right}}
+      <p class="correct">
+        You were right!
+      <p>
+    {{else}}
+      <p class="incorrect">
+        You were wrong!
+      </p>
+      <p>
+        You guessed "{{quiz_response}}", but
+      </p>
+    {{/if}}
+    <p>
+      {{user}} answered "{{prequiz_response}}" to the question:
+    </p>
+    <p class="questioninquiz">
+      {{question}}
+    </p>
+    <br>
+    <div style="text-align:center">
+      <button class="btn btn-info" id="next">
+        <h2>Next</h2>
+      </button>
+    </div>
+
+  {{/with}}
+</template>

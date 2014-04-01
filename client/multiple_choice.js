@@ -23,6 +23,35 @@ Template.multiple_choice_question.events = {
 }
 
 Template.multiple_choice_response.events = {
+  'click button#submit': function(event, template){
+    var val = template.find('input[name=quizmcradio]:checked');
+    if(!val){
+        val = template.find('div.mustrespond');
+        val.innerHTML="<h3>You must answer!<h3>";
+        return;
+    } 
+    val = val.value; 
+    var data;
+
+    Deps.nonreactive(function(){
+        data = Session.get("QuestionData");
+    });
+
+    if(data.prequiz_response == val){
+        data.right = true;
+    } else {
+        data.right = false;
+    }
+    data.quiz_response = val;
+    data.answered = true;
+
+    Session.set("QuestionData",data);
+  }
+
+
+};
+
+Template.multiple_choice_answer.events = {
   'click button#next' : function(event){
     //this is the quizobj because of the #with
     Meteor.saveResponse(this.right,this);

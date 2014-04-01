@@ -28,10 +28,15 @@
 
 <template name="ttf_response">
   {{#with QData}}
-    <h3>
-    {{user}} has stated the following three things. One of them is not true.
-    </h3>
-    <h3>Select the one you think is a lie!</h3>
+    <p>
+    {{user}} answered the following question:
+    <p>
+    <p class="questioninquiz">
+      {{question}}
+    </p>
+    <p>
+      Two of the responses below are true, and one is not. Select the one you think is a lie!
+    </p>
     <div class="radio">
       <label class='ttfanswer'>
         <input type="radio" name="quizttfradio" id="quizttfradio1" value="1">
@@ -55,7 +60,6 @@
     <br>
 
     <div style="text-align:center">
-      <button class="btn btn-warning" id="prev"><h2>Previous</h2></button>
       <button class="btn btn-info" id="submit">
         <h2>Submit</h2>
       </button>

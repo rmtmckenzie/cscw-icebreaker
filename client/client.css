@@ -25,6 +25,25 @@ body {
 	}
 }*/
 
+.questioninquiz {
+  background: #eee;
+  display: inline-block;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.correct{
+  background: #bfb;
+  display: inline-block;
+  padding: 5px;
+  border-radius: 5px;
+}
+.incorrect{
+  background: #fbb;
+  display: inline-block;
+  padding: 5px;
+  border-radius: 5px;
+}
 
 .login-buttons-dropdown-align-right {
     float: right;
