@@ -21,8 +21,8 @@ function quizWrapAction(){
   this.render();
   var q = Session.get('QuestionData');
   if(q){
-    if(q.answertype){
-        this.render(q.answertype,{to:'quizrender'});
+    if(q.answered){
+        this.render(q.type + '_answer',{to:'quizrender'});
     } else {
         this.render(q.type + '_response',{to:'quizrender'});
     }

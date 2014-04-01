@@ -1,5 +1,10 @@
 
 
+function shuffle(o){ //v1.0
+    for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+    return o;
+};
+
 function handleTTF(q) {
   var ret = {};
   rand = Math.random();
@@ -78,6 +83,7 @@ function getRandomQuestion(){
       ret = handleTTF(q);
       break;
     case 'multiple_choice':
+      q.choices = shuffle(q.choices);
       ret = q;
       break;
     case 'video':
