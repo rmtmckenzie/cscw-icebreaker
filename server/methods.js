@@ -57,19 +57,19 @@ function setUserNames(firstName, lastName){
 }
 
 function getRandomQuestion(){
-  console.log("GetRandomQuestion called");
   var rand = Math.random(),
     argobj = {userid:{$ne:Meteor.userId()},rand:{$gt:rand}},
-    q = Questions.findOne(argobj),
+    q = Questions.findOne(argobj,{sort:{rand:1}}),
     ret,
     user;
 
+  console.log("GetRandomQuestion called, rand value ",rand);
   if(!q){
     argobj.rand = {$lte:rand};
-    q = Questions.findOne(argobj);
+    q = Questions.findOne(argobj,{sort:{rand:1}});
   }
   if(!q){
-    console.log("No TTF questions to return for user "+Meteor.userId());
+    console.log("No questions to return for user "+Meteor.userId());
     throw new Meteor.Error(500,"No questions to return","No one else has answered yet!");
   }
   user = Meteor.users.findOne({_id:q.userid});
@@ -87,6 +87,7 @@ function getRandomQuestion(){
       ret = q;
       break;
     case 'video':
+      q.choices = shuffle(q.choices);
       ret = q;
       break;
     default:

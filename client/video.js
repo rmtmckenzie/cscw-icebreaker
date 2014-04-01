@@ -37,7 +37,7 @@ Template.video_question.events = {
         questionObj = Session.get("Question");
         question_text = questionObj.question;
         custom = $("#self_defn").val() || '';
-        prequiz_response = $("#response-boxes input:checkbox:checked").first().val() || '';
+        prequiz_response = $("#response-boxes input:radio:checked").first().val() || '';
 
         if((custom.trim().length === 0) && prequiz_response.length === 0)
             return alert("You must submit at least a single value");
@@ -127,22 +127,29 @@ Template.video_postquestion.events = {
 Template.video_response.events = {
   'click button#answer' : function(event,template){
     // 1. Check the answer,
-    answer = $("#checkbox-answers input:checkbox:checked").first().val() || '';
-    questionObj = Session.get("QuestionData");
+    var answer = $("#checkbox-answers input:radio:checked").first().val() || '';
+    var questionObj;
+    Deps.nonreactive(function(){
+        questionObj = Session.get("QuestionData");
+    });
+
 
     if(answer.length === 0)
         return alert("Please answer the question before continuing");
+
+    questionObj.quiz_response = answer;
+    questionObj.answered = true;
 
     // 2. Give them the result
     if(answer === questionObj.prequiz_response) {
         questionObj.right = true;
     } else {
-            questionObj.right = false;
+        questionObj.right = false;
     }
 
     Session.set('QuestionData', questionObj);
     // 3. Send it to the video response showing the result
-    Router.go('video_result');
+    //Router.go('video_result');
   }
 
 };
