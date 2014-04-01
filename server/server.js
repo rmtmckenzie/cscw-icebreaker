@@ -54,7 +54,7 @@ Questions.allow({
         break;
     case "question_mc":
         check(data.prequiz_response, NonEmptyString);
-        check(data.choices, NonEmptyString);
+        check(data.choices, [String]);
         check(data.question, NonEmptyString);
         break;
     default:
