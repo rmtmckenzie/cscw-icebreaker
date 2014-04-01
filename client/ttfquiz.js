@@ -3,7 +3,8 @@ Template.question_ttf.events = {
   'click button#next' : function (event,template) {
     //post to db
     //save user, true statement, true statment, false statement, num
-    var true1 = template.find('#truth1'),
+    var questionObj = Session.get("Question"),
+        true1 = template.find('#truth1'),
         true2 = template.find('#truth2'),
         false1 = template.find('#lie'),
         num = 1;
@@ -26,16 +27,16 @@ Template.question_ttf.events = {
       });
     }
 
-    if(true1.value && true2.value && false1.value){
-      Meteor.saveQuestion('response_ttf',{
-        true1:true1.value,
-        true2:true2.value,
-        false1:false1.value,
+    if(questionObj && true1.value && true2.value && false1.value){
+      Meteor.saveQuestion(questionObj.type, {
+          true1:true1.value,
+          true2:true2.value,
+          false1:false1.value
       });
       Router.go('nextprequiz');
 
     } else {
-      console.log("Enter values!");
+        alert("Please enter a value.");
     }
   }
 }

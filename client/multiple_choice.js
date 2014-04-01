@@ -12,8 +12,8 @@ Template.question_mc.events = {
     if($("#response-boxes input:checkbox:checked").length > 1)
         return alert("Wowzers, please just choose one, thanks!");
 
-    Meteor.saveQuestion('question_mc',{
-        prequiz_response : prequiz_response,
+    Meteor.saveQuestion(questionObj.type,{
+        prequiz_response : custom.trim().length > 0 ? custom.trim() : prequiz_response,
         choices : questionObj.choices,
         question : questionObj.question
     });

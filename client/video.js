@@ -1,7 +1,8 @@
 var questionObj,
     question_text,
     prequiz_response,
-    choices;
+    choices,
+    custom;
 
 Template.postquestion_video.rendered = function(){
   var cam = this.find('#videoViewport'),
@@ -33,9 +34,12 @@ Template.question_video.events = {
 
         questionObj = Session.get("Question");
         question_text = questionObj.question;
-        prequiz_response = $("#response-boxes input:checkbox:checked").map(function(){
-                  return $(this).val();
-                      }).get();
+        custom = $("#self_defn").val();
+        prequiz_response = $("#response-boxes input:checkbox:checked").first().val() || '';
+
+        if((custom.trim().length === 0) && prequiz_response.length === 0)
+            return alert("You must submit at least a single value");
+
         choices = questionObj.choices;
         Router.go('postquestion_video');
     }
@@ -76,10 +80,10 @@ Template.postquestion_video.events = {
         console.log("Saving the newly created audio and video into a question object");
 
         //get parameter to be put into database
-        var saveobj = Meteor._getQuestionObj("video",{
+        var saveobj = Meteor._getQuestionObj(questionObj.type,{
           question:question_text,
           choices:choices,
-          prequiz_response:prequiz_response
+          prequiz_response : custom.trim().length > 0 ? custom.trim() : prequiz_response
         });
 
         //save the audio files and insert question data in database

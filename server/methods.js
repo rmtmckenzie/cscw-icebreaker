@@ -33,7 +33,7 @@ var handleTTF = function(q){
   } else {
     ret.s1 = q.false1;
     ret.s2 = q.true1;
-    ret.s3 = q.true2
+    ret.s3 = q.true2;
     ret.a = 1;
   }
   return ret;
@@ -43,8 +43,8 @@ function setUserNames(firstName, lastName){
   check(firstName, NonEmptyString);
   check(lastName, NonEmptyString);
 
-  Meteor.users.update({_id:Meteor.user()._id}, {$set:{"profile.firstName":firstName}})
-  Meteor.users.update({_id:Meteor.user()._id}, {$set:{"profile.lastName":lastName}})
+  Meteor.users.update({_id:Meteor.user()._id}, {$set:{"profile.firstName":firstName}});
+  Meteor.users.update({_id:Meteor.user()._id}, {$set:{"profile.lastName":lastName}});
   return true;
 }
 

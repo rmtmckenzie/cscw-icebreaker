@@ -10,6 +10,11 @@
 <label>{{this}}</label> <br/>
             {{/each}}
 
+        {{#if self_defn }}
+            <label>Custom:</label>
+            <input id="self_defn" style="display:inline-block;margin-right:10px;" type="input" name="self_defn">
+        {{/if}}
+
         </div>
         <p>Once you are done, save it and got to the next screen to record an answer</p>
         <button class="btn btn-warning" id="videoquestion"><h4>Next</h4></button>

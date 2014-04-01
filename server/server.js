@@ -41,22 +41,27 @@ Router.map(function () {
 Questions.allow({
   insert: function(userId, data){
     switch(data.type){
-    case "truetruefalse":
+    case "question_ttf":
       check(data.true1, NonEmptyString);
       check(data.true2, NonEmptyString);
       check(data.false1, NonEmptyString);
       break;
-    case "video":
+    case "question_video":
         check(data.video, NonEmptyString);
         check(data.audio, NonEmptyString);
         check(data.question, NonEmptyString);
         check(data.answer, NonEmptyString);
         break;
+    case "question_mc":
+        check(data.prequiz_response, NonEmptyString);
+        check(data.choices, NonEmptyString);
+        check(data.question, NonEmptyString);
+        break;
     default:
       //allow
       // throw new Error("No question type defined");
     }
-    check(data.userid, Match.Where(function(x){ return userId === x}));
+    check(data.userid, Match.Where(function(x){ return userId === x;}));
     check(data.rand, Number);
     console.log("allowed insert...");
     return true;
