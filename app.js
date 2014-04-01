@@ -113,7 +113,7 @@ Router.map(function () {
         Router.go("prequiz");
       },10);
     }
-  });
+  })
 
   this.route('prequiz',{
     path: '/prequiz',

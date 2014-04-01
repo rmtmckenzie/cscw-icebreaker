@@ -6,6 +6,7 @@ function handleTTF(q) {
   ret.true1= q.true1;
   ret.true2= q.true2;
   ret.false1 = q.false1;
+  ret.question = q.question;
 
   if(rand <= 0.16666){
     ret.s1 = q.true1;
@@ -83,7 +84,7 @@ function getRandomQuestion(){
       ret = q;
       break;
     default:
-      ret = {};
+      ret = q;
   }
 
   console.log("Returning question: " + JSON.stringify(q));
