@@ -32,13 +32,13 @@ body {
   border-radius: 5px;
 }
 
-.correct{
+.correct, .truth{
   background: #bfb;
   display: inline-block;
   padding: 5px;
   border-radius: 5px;
 }
-.incorrect{
+.incorrect,.lie{
   background: #fbb;
   display: inline-block;
   padding: 5px;
@@ -67,17 +67,6 @@ button h2{
   color:red;
 }
 
-.truth{
-  border-radius:5px;
-  background-color: #b2ffb2;
-  padding:5px;
-}
-
-.lie{
-  border-radius:5px;
-  background-color: #ffb2b2;
-  padding:5px;
-}
 
 .webcamHolder{
   position:relative;

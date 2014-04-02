@@ -37,15 +37,27 @@ Template.video_question.events = {
         questionObj = Session.get("Question");
         question_text = questionObj.question;
         custom = $("#self_defn").val() || '';
-        prequiz_response = $("#response-boxes input:checkbox:checked").first().val() || '';
+        prequiz_response = $("#response-boxes input[name=videoinput]:checked").first().val() || '';
+
+        if($("#response-boxes input:checkbox:checked").length > 1){
+            return alert("Wowzers, please just choose one, thanks!");
+        }
 
         if((custom.trim().length === 0) && prequiz_response.trim().length === 0)
             return alert("You must submit at least a single value");
 
         choices = questionObj.choices;
         Router.go('video_postquestion');
+    },
+    'change input#self_defn, input input#self_defn':function(events,template){
+      var dom = events.target;
+      
+      if(dom.value != ''){
+          $(template.findAll('input[name=videoinput]')).prop('checked',false).prop('disabled',true);
+      } else {
+          $(template.findAll('input[name=videoinput]')).prop('disabled',false);
+      }
     }
-
 };
 
 Template.video_postquestion.flipped = function() {
