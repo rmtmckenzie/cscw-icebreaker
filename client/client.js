@@ -42,3 +42,9 @@ Template.home.events = {
     Router.go('quiz');
   }
 }
+
+Template.quizwrapper.events = {
+  'click button#skip': function(event, template){
+    Session.set("QuestionData");
+  }
+}
