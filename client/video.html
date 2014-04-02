@@ -70,10 +70,16 @@
         {{/if}}
 
         <p>{{user}} left the following follow up message for their response</p>
-        <video width="320" height="240" controls>
-            <source src="/video/{{ video }}" type="video/webm">
-            <source src="/audio/{{ audio }}" type="audio/wav">
-        </video>
+        <div style="position:relative">
+          <video width="320" height="240">
+              <source src="/video/{{ video }}" type="video/webm">
+          </video>
+          <audio>
+              <source src="/audio/{{ audio }}" type="audio/wav">
+          </audio>
+          <button style="position:absolute;left:0;top:0" class="btn btn-success" id="play"><h3>Play</h3></button>
+        </div>
+        <br>
         <br>
         <button class="btn btn-success" id="next"><h4>Next</h4></button>
     {{/with}}

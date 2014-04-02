@@ -169,5 +169,14 @@ Template.video_answer.events = {
   'click button#next' : function(event, template){
     Meteor.saveResponse(this.right,this);
     Session.set('QuestionData');
+  },
+  'click button#play' : function(event, template){
+    var vid = template.find('video');
+    var audio = template.find('audio');
+
+    console.log("Playing?");
+    vid.play();
+    audio.play();
+
   }
 }

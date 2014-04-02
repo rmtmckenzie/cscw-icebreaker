@@ -13,7 +13,7 @@ Meteor.saveQuestion = function(type,dataobj){
   Deps.nonreactive(function(){
     var q = Session.get("QuestionCount") || 0;
     Session.set("QuestionCount",q+1);
-  })
+  });
 }
 
 Meteor.saveResponse = function(correct,dataobj){
@@ -46,7 +46,7 @@ Handlebars.registerHelper('PreData', function(){
 });
 
 Handlebars.registerHelper('DoneQuestions',function(){
-  return Session.get("QuestionCount") >= 7;
+  return Session.get("QuestionCount") >= 8;
 });
 
 Handlebars.registerHelper('DoneAnswers',function(){
