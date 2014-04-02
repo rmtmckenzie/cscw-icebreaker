@@ -46,13 +46,17 @@ Template.video_question.events = {
         if((custom.trim().length === 0) && prequiz_response.trim().length === 0)
             return alert("You must submit at least a single value");
 
+
         choices = questionObj.choices;
+        if(custom.trim().length > 0)
+            choices.push(custom);
+
         Router.go('video_postquestion');
     },
     'change input#self_defn, input input#self_defn':function(events,template){
       var dom = events.target;
-      
-      if(dom.value != ''){
+
+      if(dom.value !== '') {
           $(template.findAll('input[name=videoinput]')).prop('checked',false).prop('disabled',true);
       } else {
           $(template.findAll('input[name=videoinput]')).prop('disabled',false);

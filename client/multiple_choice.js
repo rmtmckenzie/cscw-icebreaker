@@ -13,9 +13,16 @@ Template.multiple_choice_question.events = {
     if($("#response-boxes input:checkbox:checked").length > 1){
         return alert("Wowzers, please just choose one, thanks!");
     }
+
+    choices = questionObj.choices;
+
+    if(custom.trim().length > 0) {
+        choices.push(custom);
+    }
+
     Meteor.saveQuestion(questionObj.type,{
         prequiz_response : custom.trim().length > 0 ? custom.trim() : prequiz_response,
-        choices : questionObj.choices,
+        choices : choices,
         question : questionObj.question
     });
 
@@ -23,8 +30,8 @@ Template.multiple_choice_question.events = {
   },
   'change input#self_defn, input input#self_defn':function(events,template){
     var dom = events.target;
-    
-    if(dom.value != ''){
+
+    if(dom.value !== ''){
         $(template.findAll('input[name=mcinput]')).prop('checked',false).prop('disabled',true);
     } else {
         $(template.findAll('input[name=mcinput]')).prop('disabled',false);
@@ -39,8 +46,8 @@ Template.multiple_choice_response.events = {
         val = template.find('div.mustrespond');
         val.innerHTML="<h3>You must answer!<h3>";
         return;
-    } 
-    val = val.value; 
+    }
+    val = val.value;
     var data;
 
     Deps.nonreactive(function(){
