@@ -44,7 +44,8 @@ Template.ttf_question.events = {
 
 Template.ttf_response.events = {
   'click button#submit': function(event, template){
-    var val = template.find('input[name=quizttfradio]:checked');
+    var val = template.find('input[name=quizttfradio]:checked'),
+        data;
     if(!val){
       val = template.find('div.mustrespond');
       val.innerHTML="<h3>You must answer!<h3>";
@@ -56,7 +57,7 @@ Template.ttf_response.events = {
     });
     if(val == data.a){
       data.right = true;
-      switch(val){
+      switch(parseInt(val)){
         case 1:
           data.guess = data.s1;
           data.other1 = data.s2;

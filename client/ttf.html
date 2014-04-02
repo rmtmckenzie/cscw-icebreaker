@@ -66,22 +66,24 @@
 <template name="ttf_answer">
   {{#with QData}}
     {{#if right}}
-      <h2>Good job, you got it right!</h2>
-      <h2>This is not true about {{user}}:<h2>
-      <h3 class="lie">{{guess}}</h3>
-      <h2>These are true!</h2>
-      <h3 class="truth">{{other1}}</h3>
-      <h3 class="truth">{{other2}}</h3>
+      <p>Good job, you got it right!</p>
+      <p>This is not true about {{user}}:</p>
+      <p class="lie">{{guess}}</p>
+      <p>These are true!</p>
+      <p class="truth">{{other1}}</p>
+      <br>
+      <p class="truth">{{other2}}</p>
     {{else}}
-      <h2>Good try, but you got it wrong.<h2>
-      <h2>This is true:</h2>
-      <h3 class="truth">{{guess}}</h3>
-      <h2>And this is also true:</h2>
-      <h3 class="truth">{{other}}</h3>
-      <h2>This is what's actually not true about {{user}}:<h2>
-      <h3 class="lie">{{lie}}</h3>
+      <p>Good try, but you got it wrong.<p>
+      <p>These are true:</p>
+      <p class="truth">{{guess}}</p>
+      <br>
+      <p class="truth">{{other}}</p>
+      <p>This is what's actually not true about {{user}}:<p>
+      <p class="lie">{{lie}}</p>
     {{/if}}
-      <button class="btn btn-success" id="next"><h2>Next</h2></button>
+      <br>
+      <button class="btn btn-success" id="next"><h4>Next</h4></button>
   {{/with}}
 </template>
 

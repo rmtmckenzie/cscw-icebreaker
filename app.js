@@ -35,7 +35,7 @@ function questionWrapAction(){
   var renderlist = [
         {
             "type" : "video", // 1
-            "question" : "What continents have you last travelled to? Pick North America if you haven't been anywhere else.",
+            "question" : "Which continent have you last travelled to (pick North America if you haven't been anywhere else).",
             "choices" : ['Asia', 'Australia', 'North America', 'South America', 'Antartica', 'Europe','Africa']
         },
         {
