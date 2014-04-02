@@ -96,7 +96,7 @@ Template.video_postquestion.events = {
         var flipped = false;
 
         Deps.nonreactive(function(){
-          fipped = Session.get("WebcamFlipped") || 0;
+          flipped = Session.get("WebcamFlipped") || 0;
         });
 
         console.log("Saving the newly created audio and video into a question object");
