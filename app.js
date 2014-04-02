@@ -18,6 +18,12 @@ function quizWrapBefore(){
 
 
 function quizWrapAction(){
+  var count = Session.get("AnswerCount");
+  if(count >= 20){
+    this.redirect('home');
+    return;
+  }
+
   this.render();
   var q = Session.get('QuestionData');
   if(q){
@@ -121,8 +127,6 @@ Router.map(function () {
     layoutTemplate:'layout',
     action: questionWrapAction
   });
-
-
 
   this.route('video_result',{
     path: '/video/result',
