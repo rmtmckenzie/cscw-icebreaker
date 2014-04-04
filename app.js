@@ -40,7 +40,7 @@ function quizWrapAction(){
 function questionWrapAction(){
   var renderlist = [
         {
-            "type" : "video", // 1
+            "type" : "multiple_choice", // 1
             "question" : "Which continent have you last travelled to (pick North America if you haven't been anywhere else).",
             "choices" : ['Asia', 'Australia', 'North America', 'South America', 'Antartica', 'Europe','Africa']
         },
@@ -66,7 +66,7 @@ function questionWrapAction(){
             "question" : "Name 2 special skills or hobbies that people wouldn't guess that you have."
         },
         {
-            "type" : "video", // 6
+            "type" : "multiple_choice", // 6
             "question" : "What is your dream job?",
             "choices" : ["Firefighting pilot", "Prime Minister of Canada", "Priest", "Optometrist", "Surgeon", "Pro Skiier", "Hockey Player"],
             "self_defn": true
